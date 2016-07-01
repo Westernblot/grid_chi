@@ -1,0 +1,72 @@
+<table class="youAdd tabAudit">
+	<tr>
+		<td class="TDleft"><label>本地投资额[亿元]：</label></td>
+		<td width="30%">
+		{$mo.kg_local_invest}
+		</td>
+	
+		<td class="TDleft"><label>市外投资额[亿元]：</label></td>
+		<td>
+		{$mo.kg_outside_invest}
+		</td>
+	</tr>
+	<tr>
+		<td class="TDleft"><label>投资方实际到资额[亿元]：</label></td>
+		<td>
+		{$mo.kg_actual_in_invest}
+		</td>
+	
+		<td class="TDleft"><label>开工时间：</label></td>
+		<td>
+		{$mo.kg_date}
+		</td>
+	</tr>
+	<tr>
+		<td class="TDleft"><label>开工备注：</label></td>
+		<td colspan="3">
+		{$mo.kg_remark}
+		</td>
+	</tr>
+	<tr>
+		<td class="TDleft"><label>开工提供附件：</label></td>
+		    	<td colspan="3">
+		    		  
+		    	
+		    		  
+<div id="div_attachment_kg">
+					
+		 <!-- 如果有附件就显示 -->	     
+	<notempty name="mo.kg_attachment_url">
+		  <foreach name="kg_attachment_urlArr" item="vo" key="k">   
+		     <div>	      
+		       <a href="{$vo}" target="_blank">{$kg_attachmentArr[$k]}</a>
+		       <input type="hidden" id="kg_attachment" name="kg_attachment[]" value="{$kg_attachmentArr[$k]}"  />
+		       <input type="hidden" id="kg_attachment_url" name="kg_attachment_url[]" value="{$vo}" />
+		       <!-- <a onclick="removeParent(this)"><img src="__PUBLIC__/images/remove.png" /></a> -->
+		     </div>	   
+		  </foreach>
+	</notempty>
+		    		  
+</div>  		  
+		    		<!-- <input type="file" id="file_kg" name="file_kg" onchange="doUploadKG()" /> -->
+		    	</td>
+	</tr>
+		 <tr>
+		    	<td class="TDleft"><label>高拍仪：</label></td>
+		    	<td colspan="3">
+		    		<div id="div_tc_gpy_attachment">
+	
+	<notempty name="mo.tc_gpy">
+		  <foreach name="tc_gpyArr" item="vo" key="k">   
+		     <div>	      
+		       <a href="__UPLOADS__/gpy/{$vo}" target="_blank">{$vo}</a>
+		   
+		     </div>	   
+		  </foreach>
+	</notempty>	
+		
+		    		</div>
+		    	
+		    	</td>
+		    </tr>
+</table>

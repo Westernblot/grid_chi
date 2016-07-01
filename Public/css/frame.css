@@ -1,0 +1,67 @@
+@charset "utf-8";/* CSS Document */
+*, * focus {outline: none;margin: 0;padding: 0;}
+html,body{height:100%; overflow:hidden;}
+body{background:#FFF;font-size:12px;}
+body,ul,li,div,p{margin:0;padding:0;font-family: Microsoft YaHei,'微软雅黑' , Tahoma, Helvetica, Arial, sans-serif;}
+a{text-decoration: none; color:inherit;}
+a:hover{ color:#0000FF;}
+a[href^="#"]:focus, a[href^="javascript"]:focus {outline:0;-moz-outline-style: none;}
+a img {border: none 0;vertical-align: middle;}
+form {display: inline;margin:0;padding:0;font-family:Microsoft YaHei, "微软雅黑";}
+ul,li{list-style-type:none;}
+em,i{font-style:normal;}
+table,td{border-collapse:collapse;}
+h2{ font-size:18px;}
+h3{font-size:15px;font-weight:bold;}
+h6{font-size:12px;font-weight:normal;}
+.fl{float:left;}
+.fr{float:right;}
+input[type="text"],textarea{border:1px solid #B4B4B4; box-shadow: inset 1px 1px 1px #DDD;}
+input[type="text"]{padding:0 10px;clear:both;line-height:24px;height:26px;}
+select{ padding:4px;}
+/*主框架*/
+.hIcon{background:url(../images/frame/hIcon.png) no-repeat;}
+/*frametop样式*/
+.gs_logo{height:78px;background:url(../images/frame/gsbg.jpg) center bottom repeat-x #002E8B;color:#A4E7FF;}
+.top{height:40px;background:url(../images/frame/topbg.jpg) center bottom repeat-x #002E8B; overflow:hidden;}
+.top_icon{border-left:1px solid #002E8B; overflow:hidden;}
+.top_icon li{float:left;border-right:1px solid #002E8B; border-left:1px solid #126EB7; overflow:hidden;}
+.top_icon .top_a{ display:inline-block; height:20px; line-height:20px;padding:10px; color:#FFF;font-size:12px; text-align:center; }
+.top .top_a:hover,.top_icon .active{background:#126EB7;color:#D6F4FF;}
+.top_icon .top_a .hIcon{ width:20px; height:15px; display:inline-block; vertical-align:middle;}
+.top_icon .top_a em{vertical-align:middle}
+/*头部导航栏样式*/
+.ico_tj{background-position:center 0;}
+.ico_jsq{background-position:center -33px;}
+.ico_dt{background-position:center -66px;}
+.ico_sz{background-position:center -99px;}
+.ico_tc{background-position:center -133px;}
+/*用户块*/
+.username{padding:5px 20px; float:left;height:30px;color:#FFF;}
+.username:hover{background:#126EB7;color:#D6F4FF;}
+.username span{ width:30px; height:30px;float:left; overflow:hidden;margin-right:9px;-border-radius:100px;-moz-border-radius:100px; -webkit-border-radius:100px;}
+.username span img{ width:30px; height:30px; vertical-align:top;}
+.username p{overflow:hidden; line-height:15px; text-align:left;}
+/*搜索*/
+.search{height:34px; margin:11px; text-align:center;}
+.search-inner{background-color:#FFF; border:1px solid #ccc; display:inline-block;}
+.search .ico_search{vertical-align:middle;width:20px; height:10px; display:inline-block;background-position:center -302px;}
+.search_input,.search input[type="text"]{ height:21px; padding:5px 0; line-height:21px; width:102px; display:inline-block;font-size:9px;font-family:Microsoft YaHei, "微软雅黑"; border:0;  vertical-align:middle;color:#A5A5A3;}
+.search_buttom{ width:40px; height:33px; border:0; font-size:12px;font-family:Microsoft YaHei, "微软雅黑"; text-align:center; vertical-align:middle;display:inline-block; color:#FFF;background-color:#E75280;}
+/*菜单*/
+.sidebar-nav {position:relative;text-align:center; border-bottom:1px solid #CCCCCC;}
+.sidebar-nav .menu{height:30px;line-height: 30px; padding:3px 0;font-weight: normal; display:block;border-top:1px solid #CCCCCC; border-bottom:1px solid #FAFAFA; text-align:left;cursor:pointer;background:url(../images/sidebar-nav.jpg) repeat-x;}
+.sidebar-nav .menu .hIcon{ margin-top:8px; width:40px; height:16px; float:left; text-align:center;opacity:.8}
+.sidebar-nav .menu h3{float:left; color:#4A515B;}
+.sidebar-nav .ico_work{background-position:center -559px;}
+.sidebar-nav .ico_business{background-position:center -614px;}
+.sidebar-nav .ico_program{background-position:center -665px;}
+.sidebar-nav .ico_orderM{background-position:center -719px;}
+.sidebar-nav .ico_aftermarket{background-position:center -770px;}
+.nav-list {display:none;border-top:1px solid #CCCCCC;overflow:hidden;}
+.nav-list li a {display: block;color:#4A515B;padding: .5em 1em .5em 3.6em; text-align:left;background:url(../images/frame/dot02.png) no-repeat 2.6em 9px;}
+.nav-list li a:hover {background:url(../images/frame/dot.png) no-repeat 2.6em 9px #126EB7; color:#FFF;}
+.nav-list li a.active {background:url(../images/frame/dot.png) no-repeat 2.6em 9px #126EB7; color:#FFF;}
+.ico_menuarrow{ margin-top:12px; margin-right:8px;width:11px; height:10px; overflow:hidden; float:right;background:url(../images/frame/accordinarrow.png) no-repeat center 0;}
+.sidebar-nav .active .ico_menuarrow{background-position:center -10px;}
+.sidebar-nav .active .hIcon{opacity:1}

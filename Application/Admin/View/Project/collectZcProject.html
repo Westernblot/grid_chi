@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>用户列表</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/theme.css">
+	</head>
+
+	<body>
+		<div class="content">
+			<ul class="breadcrumb">
+				<li>
+					<a href="__APP__/Admin/Index/main.html">首页</a><span class="divider">/</span>
+				</li>
+				<li class="active">
+					新注册项目汇总
+				</li>
+			</ul>
+
+			<div class="container-fluid">
+				<div class="row-fluid">
+
+					<div class="btn-toolbar"><form class="form-inline">
+						<!-- <button class="btn btn-danger" onclick="doAudit('zc_flag','审核通过')">
+							审核通过
+						</button>
+						<button class="btn" onclick="doAudit('zc_flag','审核未通过')">
+							审核未通过
+						</button> -->
+						审核状态:<select id="zc_flag" name="zc_flag">
+							<option value="" <eq name="zc_flag" value="">selected</eq>>-查询全部-</option>
+							<option value="审核中" <eq name="zc_flag" value="审核中">selected</eq>>审核中</option>
+							<option value="审核通过" <eq name="zc_flag" value="审核通过">selected</eq>>审核通过</option>
+							<option value="审核未通过" <eq name="zc_flag" value="审核未通过">selected</eq>>审核未通过</option>
+						</select>
+						时间：<input type="text" id="zc_date" name="zc_date" value="{$zc_date}" class="Wdate"  onclick="WdatePicker({dateFmt:'yyyyMM'})"/>
+						<button class="btn" onclick="doQuery()">查询</button>
+						<button class="btn" onclick="doExcel()">导出到excel</button>
+						
+						</form>
+					</div>
+				<div class="block-tab">
+    <table class="table-mins">
+							<thead>
+								<tr>
+									<th>
+									<input type="checkbox" name="checkbox" id="checkbox" onclick="checkAll(this)">
+									</th>
+									<th>编号</th>
+									<th>投资方名称</th>
+									<th>在黄注册名称</th>
+									<th>注册时间</th>
+									<th>法人代表</th>
+									<th>注册资本(万元)</th>
+									<th>项目建设内容</th>
+									<th>产业类别</th>
+									<th>所属产业链</th>
+									<th>总投资额(亿元)</th>
+									<th>一期投资额(亿元)</th>
+									<th>合同签约时间</th>
+									<th>建设地点(注明园区)</th>
+									<th>项目用地(亩)</th>
+									<th>项目引荐单位</th>
+									<th>状态</th>
+									<th>审核状态</th>
+									<th>&nbsp;</th>
+								</tr>
+							</thead>
+							<tbody>
+
+								<foreach name="list" item="vo" key="k">
+
+									<tr id="{$vo.id }">
+										<td>
+										<input type="checkbox" name="chk" id="chk">
+										</td>
+										<td>{$vo.id}</td>
+										<td>{$vo.qy_outside_investor}</td>
+										<td>{$vo.zc_hs_name}</td>
+										<td>{$vo.zc_date}</td>
+										<td>{$vo.zc_legal_person}</td>
+										<td>{$vo.zc_capital}</td>
+										<td>{$vo.qy_build_content}</td>
+										<td>{$vo.qy_industry_category}</td>
+										<td>{$vo.zc_industry_chain}</td>
+										<td>{$vo.qy_total_invest}</td>
+										<td>{$vo.zc_first_invest}</td>
+										<td>{$vo.qy_date}</td>
+										<td>{$vo.zc_build_place}</td>
+										<td>{$vo.zc_user_land}</td>
+										<td>{$vo.zc_recommend_company}</td>
+										<td><font color="red">{$vo.zc_status}</font></td>
+										<td><font color="red">{$vo.zc_flag}</font></td>
+										<td>
+											<a href="__URL__/seeProjectUI?id={$vo.id}">查看</a>
+										</td>
+									</tr>
+
+								</foreach>
+
+							</tbody>
+							<tfoot>
+						        <tr>
+						          <td colspan="19" style=" padding:0;">
+											<div class="block-foot">
+											        <ul class="pagination pagination_ml pull-right">
+											            {$page}
+											        </ul>
+											</div>
+						          </td>
+						        </tr>
+						      </tfoot>
+						</table>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.4.1.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/ajaxfileupload.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/sysGeneral.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/systemUtils.js"></script>
+
+	<script type="text/javascript">
+	
+	//导出到excel
+	function doExcel(){
+		    var zc_flag= $('#zc_flag').val();
+			var zc_date= $('#zc_date').val();
+			location.href="__URL__/excelCollectZcProject?zc_flag="+zc_flag+"&zc_date="+zc_date;
+		//excelCollectZcProject
+	}
+	
+	//查询
+	    function doQuery(){
+			var zc_flag= $('#zc_flag').val();
+			var zc_date= $('#zc_date').val();
+			location.href="__URL__/collectZcProject?zc_flag="+zc_flag+"&zc_date="+zc_date;
+		}
+		//审核操作
+		function doAudit(field,fieldValue) {
+			var ids = getId('delete');
+			if (ids == false) {
+				return;
+			}
+			//alert(ids);
+			if (confirm("确定操作吗？")) {
+				location.href = '__URL__/cmdAudit?field='+field+'&fieldValue='+fieldValue+'&ids=' + ids;
+			}
+		}
+
+		
+	</script>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>用户列表</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/theme.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/combo/dhtmlxcombo.css"/>
+		<script src="__PUBLIC__/js/combo/dhtmlxcombo.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/layer/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/sysGeneral.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/systemUtils.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/ajaxfileupload.js"></script>
+  
+    
+    <script type="text/javascript" src="__PUBLIC__/layer/layer.js"></script>
+    
+    <script type="text/javascript">
+    	
+    	layer.config({
+    extend: [
+        'extend/layer.ext.js',
+        'skin/layer.ext.css' //layer-ext-myskin即是你拓展的皮肤文件
+    ]
+});
+
+//调用示例
+layer.ready(function(){ //为了layer.ext.js加载完毕再执行
+    layer.photos({
+        photos: '#layer-photos-demo_tc'
+    });
+    layer.photos({
+        photos: '#layer-photos-demo_kg'
+    });
+}); 
+    	
+    </script>
+
+	</head>
+
+	<body>
+		<div class="content">
+			<ul class="breadcrumb">
+				<li>
+					<a href="__APP__/Admin/Index/main.html">首页</a><span class="divider">/</span>
+				</li>
+				<li>
+					<a href="__APP__/Admin/Project/tcProjectMain">投产项目一览表</a><span class="divider">/</span>
+				</li>
+				<li class="active">
+					添加项目
+				</li>
+			</ul>
+
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<div class="btn-toolbar">
+						<!-- <button class="btn btn-primary" onclick="saveForm()">
+							<img src="__PUBLIC__/images/icon/clipboard.png" class="clipboard"/> 保存
+						</button> -->
+						<a href="javascript:history.back();" class="btn">返回</a>
+						<div class="btn-group"></div>
+					</div>
+					<div class="well you-bg">
+						<form id="form1">
+
+             
+							<egt name="showNum" value="2">
+							<font color="red"><h3>签约信息</h3></font>
+							<hr>
+							<!-- 签约项目模板 -->
+							<include file="Public/audit_qy" />
+							<!-- <h3>审核信息：</h3>
+							<font color="blue" size="4">{$mo.qy_opinion}</font> -->
+							<hr>
+							</egt>
+							
+							<egt name="showNum" value="3">
+							<font color="red"><h3>注册信息</h3></font>
+							<hr>
+							<!-- 注册项目模板 -->
+							<include file="Public/audit_zc" />							
+							<h3>审核信息：</h3>
+							<font color="blue" size="4">{$mo.zc_opinion}</font>
+							<hr>
+							</egt>
+							
+							<egt name="showNum" value="4">
+							<font color="red"><h3>开工信息</h3></font>
+							<hr>
+							<!-- 开工项目模板 -->
+							<include file="Public/audit_kg" />
+							<h3>审核信息：</h3>
+							<font color="blue" size="4">{$mo.kg_opinion}</font>
+							<hr>
+							</egt>
+							
+							<egt name="showNum" value="5">
+							<font color="red"><h3>投产信息</h3></font>
+							<hr>
+							<!-- 投产项目模板 -->
+							<include file="Public/audit_tc" />
+							<h3>审核信息：</h3>
+							<font color="blue" size="4">{$mo.tc_opinion}</font>
+							<hr>
+							</egt>
+
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</body>
+	
+</html>

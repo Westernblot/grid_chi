@@ -1,0 +1,161 @@
+<table class="youAdd">
+	<tr>
+		<td class="TDleft"><label>本地投资额[亿元]：</label></td>
+		<td>
+		<input type="number" name="kg_local_invest" value="{$mo.kg_local_invest}" class="input-xlarge">
+		</td>
+	
+		<td class="TDleft"><label>市外投资额[亿元]：</label></td>
+		<td>
+		<input type="number" name="kg_outside_invest" value="{$mo.kg_outside_invest}" class="input-xlarge">
+		</td>
+	</tr>
+	<tr>
+		<td class="TDleft"><label>投资方实际到资额[亿元]：<font color="red">*</font></label></td>
+		<td>
+		<input type="number" name="kg_actual_in_invest" value="{$mo.kg_actual_in_invest}" class="input-xlarge" required="required">
+		</td>
+	
+		<td class="TDleft"><label>开工时间：<font color="red">*</font></label></td>
+		<td>
+		<input type="text" name="kg_date" value="{$mo.kg_date}" class="Wdate"  onclick="WdatePicker({dateFmt:'yyyyMM'})" required="required">
+		</td>
+	</tr>
+	<tr>
+		<td class="TDleft"><label>开工备注：</label></td>
+		<td colspan="3">
+		<textarea class="input-xxlarge" name="kg_remark">{$mo.kg_remark}</textarea>
+		</td>
+	</tr>
+	<tr>
+		<td class="TDleft"><label>开工提供附件：</label></td>
+		    	<td colspan="3">
+		    		  
+		    	
+		    		  
+<div id="div_attachment_kg">
+					
+		 <!-- 如果有附件就显示 -->	     
+	<notempty name="mo.kg_attachment_url">
+		  <foreach name="kg_attachment_urlArr" item="vo" key="k">   
+		     <div>	      
+		       <a href="{$vo}" target="_blank">{$kg_attachmentArr[$k]}</a>
+		       <input type="hidden" id="kg_attachment" name="kg_attachment[]" value="{$kg_attachmentArr[$k]}"  />
+		       <input type="hidden" id="kg_attachment_url" name="kg_attachment_url[]" value="{$vo}" />
+		       <a onclick="removeParent(this)"><img src="__PUBLIC__/images/remove.png" /></a>
+		     </div>	   
+		  </foreach>
+	</notempty>
+		    		  
+</div>  		  
+		    		<input type="file" id="file_kg" name="file_kg" onchange="doUploadKG()" />
+		    	</td>
+	</tr>
+	 <tr>
+		    	<td class="TDleft"><label>高拍仪：</label></td>
+		    	<td colspan="3">
+		    		<div id="div_kg_gpy_attachment">
+	
+	<notempty name="mo.kg_gpy">
+		  <foreach name="kg_gpyArr" item="vo" key="k">   
+		     <div>	      
+		       <a href="__UPLOADS__/gpy/{$vo}" target="_blank">{$vo}</a>
+		       <input type="hidden" id="kg_gpy" name="kg_gpy[]" value="{$vo}" />
+		       <a onclick="removeParent(this)"><img src="__PUBLIC__/images/remove.png" /></a>
+		     </div>	   
+		  </foreach>
+	</notempty>	
+		
+		    		</div>
+		    		<input type="button" name="" value="从高拍仪拍照" onclick="popLayerKG()" />
+		    		
+		    	</td>
+		    </tr>
+</table>
+
+<script type="text/javascript">
+
+
+//弹出操作窗口
+	    function popLayerKG(){
+	    	
+	    //页面层
+    layer.open({
+        type: 2,
+        title: '从高拍仪拍照',
+        maxmin: true,
+        //shade:0,
+        shadeClose: true, //点击遮罩关闭层
+        area : ['800px' , '520px'],
+        content: '__APP__/Admin/Gpy/show.html',
+         btn: ['确定'],
+         yes: function(index, layero){
+             //do something
+             //alert(layer.getChildFrame('#div_gpy_attachment', index).text());
+             
+              var gpyArr = layer.getChildFrame('#div_gpy_attachment', index).text().split(";");
+             
+              var div = $('#div_kg_gpy_attachment');
+              for(var i=0;i<gpyArr.length;i++){
+              	var name = gpyArr[i];
+              	if(name!=''){             		
+				var html = '<div>'
+						    +'<a href="__UPLOADS__/gpy/'+name+'" target="_blank">'+name+'</a>'
+		                    +'<input type="hidden" id="kg_gpy" name="kg_gpy[]" value="'+name+'" />'
+		                    +'<a onclick="removeParent(this)"><img src="__PUBLIC__/images/remove.png" /></a>'
+							+'</div>';
+				div.append(html);
+              	}
+              }
+             
+             
+             
+          layer.close(index); //如果设定了yes回调，需进行手工关闭
+         }
+    });
+	    
+	    }
+
+
+function doUploadKG(){
+	 $.ajaxFileUpload
+     (
+         {
+             url: '__APP__/Home/File/upload', //用于文件上传的服务器端请求地址
+             type: 'post',
+             data: { fileId: 'file_kg', name: 'lunis' }, //此参数非常严谨，写错一个引号都不行
+             secureuri: false, //一般设置为false
+             fileElementId: 'file_kg', //文件上传空间的id属性  <input type="file" id="file1" name="file1" />
+             dataType: 'text', //返回值类型 一般设置为json
+             success: function (data, status)  //服务器成功响应处理函数
+             {
+                var name=data.name;
+                var url=data.url;
+                var href = url;
+                 
+                
+               //alert(name+";"+url);
+                
+                var div = $('#div_attachment_kg');
+				var html = '<div>'
+						    +'<input type="hidden" name="kg_attachment[]" value="'+name+'">'
+							+'<input type="hidden" name="kg_attachment_url[]" value="'+url+'">'
+							+'<a href="'+href+'" target="_blank">'+name+'</a><a onclick="removeParent(this)"><img src="__PUBLIC__/images/remove.png"></a>'
+							+'</div>';
+				div.append(html);
+             },
+             error: function (data, status, e)//服务器响应失败处理函数
+             {
+                 alert(e);
+             }
+         }
+     );
+}
+
+         /**
+          *移除父对象 
+          */
+         function removeParent(obj){
+         	$(obj).parent().remove();
+         }
+</script>

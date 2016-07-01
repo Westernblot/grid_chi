@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>用户列表</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/theme.css">
+	</head>
+
+	<body>
+		<div class="content">
+			<ul class="breadcrumb">
+				<li>
+					<a href="__APP__/Admin/Index/main.html">首页</a><span class="divider">/</span>
+				</li>
+				<li class="active">
+					产业链招商分局汇总
+				</li>
+			</ul>
+
+			<div class="container-fluid">
+				<div class="row-fluid">
+
+					<div class="btn-toolbar"><form class="form-inline">
+						<!-- <button class="btn btn-danger" onclick="doAudit('zc_flag','审核通过')">
+							审核通过
+						</button>
+						<button class="btn" onclick="doAudit('zc_flag','审核未通过')">
+							审核未通过
+						</button> -->
+						审核状态:<select id="all_flag" name="all_flag">
+							<option value="" <eq name="all_flag" value="">selected</eq>>-查询全部-</option>
+							<option value="审核中" <eq name="all_flag" value="审核中">selected</eq>>审核中</option>
+							<option value="审核通过" <eq name="all_flag" value="审核通过">selected</eq>>审核通过</option>
+							<option value="审核未通过" <eq name="all_flag" value="审核未通过">selected</eq>>审核未通过</option>
+						</select>
+						时间：<input type="text" id="all_date" name="all_date" value="{$all_date}" class="Wdate"  onclick="WdatePicker({dateFmt:'yyyyMM'})"/>
+						<button class="btn" onclick="doQuery()">查询</button>
+						<!-- <button class="btn" onclick="doExcel()">导出到excel</button> --></form>
+						
+						
+					</div>
+				<div class="block-tab">
+    <table class="table-mins">
+							<thead>
+								<tr>
+									
+									<th>产业链招商</th>
+									<th>分局</th>
+									<th>责任单位</th>
+									<th>新注册投资0.5亿元以上重点项目（个数）</th>
+									<th>新注册投资1亿元以上重点项目（个数）</th>
+									<th>当年新开工重点项目（个数）</th>
+								</tr>
+							</thead>
+							<tbody>
+
+								<tr>
+									<td rowspan="2">高端装备制造及智能化模具产业链</td>
+									<td>一分局</td>
+									<td>市经信委</td>
+									<td>{$count1_1_1}</td>
+									<td>{$count1_1_2}</td>
+									<td>{$count1_1_3}</td>
+								</tr>
+								<tr>
+									<!-- <td>高端装备制造及智能化模具产业链</td> -->
+									<td>二分局</td>
+									<td>市国资委</td>
+									<td>{$count1_2_1}</td>
+									<td>{$count1_2_2}</td>
+									<td>{$count1_2_3}</td>
+								</tr>
+								
+								<!--  ================================================================  -->
+								
+								<tr>
+									<td rowspan="2">特钢及汽车零部件产业链</td>
+									<td>一分局</td>
+									<td>市科技局</td>
+									<td>{$count2_1_1}</td>
+									<td>{$count2_1_2}</td>
+									<td>{$count2_1_3}</td>
+								</tr>
+								<tr>
+									
+									<td>二分局</td>
+									<td>市财政局</td>
+									<td>{$count2_2_1}</td>
+									<td>{$count2_2_2}</td>
+									<td>{$count2_2_3}</td>
+								</tr>
+								
+									<!--  ================================================================  -->
+								
+								<tr>
+									<td rowspan="2">电子信息及新材料产业链</td>
+									<td>一分局</td>
+									<td>市商务委 （招商局）</td>
+									<td>{$count3_1_1}</td>
+									<td>{$count3_1_2}</td>
+									<td>{$count3_1_3}</td>
+								</tr>
+								<tr>
+									
+									<td>二分局</td>
+									<td>市委统战部</td>
+									<td>{$count3_2_1}</td>
+									<td>{$count3_2_2}</td>
+									<td>{$count3_2_3}</td>
+								</tr>
+								
+									<!--  ================================================================  -->
+								
+								<tr>
+									<td rowspan="2">医药化工产业链</td>
+									<td>一分局</td>
+									<td>市卫计委</td>
+									<td>{$count4_1_1}</td>
+									<td>{$count4_1_2}</td>
+									<td>{$count4_1_3}</td>
+								</tr>
+								<tr>
+									
+									<td>二分局</td>
+									<td>市食药监局</td>
+									<td>{$count4_2_1}</td>
+									<td>{$count4_2_2}</td>
+									<td>{$count4_2_3}</td>
+								</tr>
+								
+									<!--  ================================================================  -->
+								
+								<tr>
+									<td rowspan="2">现代服务业产业链</td>
+									<td>一分局</td>
+									<td>市商务委 （招商局）</td>
+									<td>{$count5_1_1}</td>
+									<td>{$count5_1_2}</td>
+									<td>{$count5_1_3}</td>
+								</tr>
+								<tr>
+									
+									<td>二分局</td>
+									<td>市房产局</td>
+									<td>{$count5_2_1}</td>
+									<td>{$count5_2_2}</td>
+									<td>{$count5_2_3}</td>
+								</tr>
+								
+									<!--  ================================================================  -->
+								
+								<tr>
+									<td rowspan="2">节能环保及资源回收利用产业链</td>
+									<td>一分局</td>
+									<td>市发改委</td>
+									<td>{$count6_1_1}</td>
+									<td>{$count6_1_2}</td>
+									<td>{$count6_1_3}</td>
+								</tr>
+								<tr>
+								
+									<td>二分局</td>
+									<td>市台办</td>
+									<td>{$count6_2_1}</td>
+									<td>{$count6_2_2}</td>
+									<td>{$count6_2_3}</td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+					<ul class="pagination">
+						<!-- {$page} -->
+					</ul>
+
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.4.1.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/ajaxfileupload.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/sysGeneral.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/systemUtils.js"></script>
+
+	<script type="text/javascript">
+	
+	//导出到excel
+	function doExcel(){
+		    var zc_flag= $('#zc_flag').val();
+			var zc_date= $('#zc_date').val();
+			location.href="__URL__/excelCollectZcProject?zc_flag="+zc_flag+"&zc_date="+zc_date;
+		//excelCollectZcProject
+	}
+	
+	//查询
+	    function doQuery(){
+	    	var all_flag= $('#all_flag').val();
+	    	var all_date= $('#all_date').val();
+			location.href="__URL__/collectChainProject?all_date="+all_date+"&all_flag="+all_flag;
+		}
+	
+	</script>
+</html>

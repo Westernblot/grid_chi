@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>用户列表</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/theme.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/combo/dhtmlxcombo.css"/>
+		<script src="__PUBLIC__/js/combo/dhtmlxcombo.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/sysGeneral.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/systemUtils.js"></script>
+	<script type="text/javascript">
+	 //给审核意见
+	   function giveOpinion(obj){
+	   	 var val = $(obj).val();
+	   	 $('#opinion').text(val);
+	   }
+	   
+		function auditFlag(fieldValue_flag) {
+			var checked = checkForm('#form1');
+			if (checked == false) {
+				return;
+			}
+			if (confirm("确定操作吗？")) {
+			   $('#fieldValue_flag').attr('value',fieldValue_flag);
+			   $('#form1').submit();
+			}
+		}
+	</script>
+	</head>
+
+	<body>
+		<div class="content">
+			<ul class="breadcrumb">
+				<li>
+					<a href="__APP__/Admin/Index/main.html">首页</a><span class="divider">/</span>
+				</li>
+				<li>
+					<a href="__APP__/Admin/Project/ztProjectMain">驻外招商一览表</a><span class="divider">/</span>
+				</li>
+				<li class="active">
+					添加项目
+				</li>
+			</ul>
+
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<!-- <div class="btn-toolbar">
+						<button class="btn btn-primary" onclick="auditOutside('审核通过')">
+							 审核通过
+						</button>
+						<button class="btn " onclick="auditOutside('审核未通过')">
+							 审核未通过
+						</button>
+						<a href="javascript:history.back();" class="btn">返回</a>
+						<div class="btn-group"></div>
+					</div> -->
+					<div class="well you-bg">
+						<form id="form1" action="__URL__/cmdOutsideAudit?flag={$flag}&add_dept={$add_dept}" method="post">
+							<input type="hidden" name="id" value="{$mo.id}" />
+							<input type="hidden" id="fieldValue_flag" name="fieldValue_flag" value="" />
+
+							<table class="youAdd tabAudit">
+								<tr>
+									<td class="TDleft"><label>姓名：</label></td>
+									<td width="30%">
+									{$mo.name}
+									</td>
+									<td class="TDleft"><label>部门：</label></td>
+									<td>
+									{$mo.dept}
+									</td>
+								</tr>
+								<tr>
+									<td class="TDleft"><label>招商领导类型：</label></td>
+									<td>
+									{$mo.leader_type}
+									</td>
+									<td class="TDleft"><label>到达目的地：</label></td>
+									<td>
+								    {$mo.dest}
+									</td>
+								</tr>
+								<tr>
+									<td class="TDleft"><label>开始时间：</label></td>
+									<td>
+									{$mo.sdate}
+									</td>
+									 <td class="TDleft"><label>结束时间：</label></td>
+									<td>
+									{$mo.edate}
+									</td> 
+									
+								</tr>
+								<tr>
+									<td class="TDleft"><label>出访天数：</label></td>
+									<td>
+									{$mo.num}
+									</td>
+									
+									<td class="TDleft"><label>所属产业链：</label></td>
+									<td>
+									{$mo.industry_chain}
+									</td>
+								</tr>
+								
+								<tr>
+									<td class="TDleft"><label>备注：</label></td>
+									<td colspan="3">
+									{$mo.remark}
+									</td>
+								</tr>
+  <tr>
+		    	<td class="TDleft"><label>附件：</label></td>
+		    	<td colspan="3">
+		    		  
+		    	
+		    		  
+<div id="div_attachment">
+					
+		 <!-- 如果有附件就显示 -->	     
+	<notempty name="mo.attachment_url">
+		  <foreach name="attachment_urlArr" item="vo" key="k">   
+		     <div>	      
+		       <a href="{$vo}" target="_blank">{$attachmentArr[$k]}</a>
+		       <input type="hidden" id="attachment" name="attachment[]" value="{$attachmentArr[$k]}"  />
+		       <input type="hidden" id="attachment_url" name="attachment_url[]" value="{$vo}" />
+		       <!-- <a onclick="removeParent(this)"><img src="__PUBLIC__/images/remove.png" /></a> -->
+		     </div>	   
+		  </foreach>
+	</notempty>
+		    		  
+</div>  		  
+		    		<!-- <input type="file" id="file_attachment" name="file_attachment" onchange="doUpload(this)" /> -->
+		    	</td>
+		    </tr>
+		    <tr>
+		    	<td class="TDleft"><label>高拍仪：</label></td>
+		    	<td colspan="3">
+		    		<div id="div_gpy_attachment">
+	
+	<notempty name="mo.gpy">
+		  <foreach name="gpyArr" item="vo" key="k">   
+		     <div>	      
+		       <a href="__UPLOADS__/gpy/{$vo}" target="_blank">{$vo}</a>
+		       <input type="hidden" id="gpy" name="gpy[]" value="{$vo}" />
+		       <!-- <a onclick="removeParent(this)"><img src="__PUBLIC__/images/remove.png" /></a> -->
+		     </div>	   
+		  </foreach>
+	</notempty>	
+		
+		    		</div>
+		    		<!-- <input type="button" name="" value="从高拍仪拍照" onclick="popzDialog()" /> -->
+		    		
+		    	</td>
+		    </tr>
+							</table> 
+							
+							<fieldset class="fieldset" style="width:89%;">
+								<legend>
+									拜访信息
+								</legend>
+							    <div class="block-tab" style="margin:0 20px;">
+							    <table class="table-mins">
+								    	
+								    	<tr>
+								    	   <th >拜访企业</th>
+								    	    <th>接洽人姓名</th>
+								    	     <th>接洽人职务</th>
+								    	    
+								    	</tr>
+								    	  
+		
+		<notempty name="mo.visit_company">						    	    
+		 <foreach name="visit_companyArr" item="vo" key="k">   
+		     
+		                               <tr <eq name="k%2" value="0">
+										class="odd"
+										<else/>
+										class="even"
+									</eq>>
+								    	   <td>{$vo}</td>
+								    	    <td>{$vister_manArr[$k]}</td>
+								    	     <td>{$vister_man_positionArr[$k]}</td>
+								    	   
+								    	</tr>
+		  </foreach>
+		  </notempty>
+	
+								    	    
+								    	
+								 </table>
+								 </div>
+								 </fieldset>
+							
+							
+							<h3>审核记录</h3>
+                            <font color="blue">{$mo.opinion}</font>
+							 <h3>本次审核意见：</h3>
+               <select id="sel_opinion" name="sel_opinion" onchange="giveOpinion(this)">
+                  <option value="" >-请选择-</option>
+			      <option value="同意" >同意</option>
+			      <option value="不同意" >不同意</option>
+               </select><br>
+							<textarea id="opinion" name="opinion"></textarea>
+					<div class="btn-toolbar">
+						
+						<input type="button" class="btn btn-primary" value="审核通过" onclick="auditFlag('审核通过')" />
+						<input type="button" class="btn" value="审核未通过" onclick="auditFlag('审核未通过')" />
+						<a href="javascript:history.back();" class="btn">返回</a>
+						<div class="btn-group"></div>
+					</div>
+					
+
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>

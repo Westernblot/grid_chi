@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>用户列表</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/theme.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/combo/dhtmlxcombo.css"/>
+		<script src="__PUBLIC__/js/combo/dhtmlxcombo.js"></script>
+	<script src="__PUBLIC__/validate/jquery.js"></script>
+    <script src="__PUBLIC__/validate/jquery.validate.min.js"></script>
+    <script src="__PUBLIC__/validate/localization/messages_zh.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/sysGeneral.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/systemUtils.js"></script>
+
+	<script type="text/javascript">
+	   
+	   $().ready(function() {
+         $("#form1").validate();
+       });
+	
+		function saveForm() {		
+			$('#form1').submit();
+		}
+	</script>
+	</head>
+
+	<body>
+		<div class="content">
+			<ul class="breadcrumb">
+				<li>
+					<a href="__APP__/Admin/Index/main.html">首页</a><span class="divider">/</span>
+				</li>
+				<li>
+					<a href="__APP__/Admin/Project/ztProjectMain">在谈项目一览表</a><span class="divider">/</span>
+				</li>
+				<li class="active">
+					添加项目
+				</li>
+			</ul>
+
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<div class="btn-toolbar">
+						<button class="btn btn-primary" onclick="saveForm()">
+							<img src="__PUBLIC__/images/icon/clipboard.png" class="clipboard"/> 保存
+						</button>
+						<a href="javascript:history.back();" class="btn">返回</a>
+						<div class="btn-group"></div>
+					</div>
+					<div class="well you-bg">
+						<form id="form1" action="{$mo==null?'__URL__/insert':'__URL__/update'}?toPage={$toPage}" method="post">
+							<input type="hidden" name="id" value="{$mo.id}" />
+							<input type="hidden" name="zt_status" value="在谈" />
+							
+							 <!-- 在谈项目模板 -->
+						     <include file="Public/zt" />
+						  
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</body>
+	
+</html>

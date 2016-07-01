@@ -1,0 +1,173 @@
+<table class="youAdd tabAudit">
+	<tr>
+		<td class="TDleft"><label>工商注册号：</label></td>
+		<td width="30%">
+		{$mo.zc_register_no}
+		</td>
+		<td class="TDleft"><label>在黄注册名称：</label></td>
+		<td>
+		{$mo.zc_hs_name}
+		</td>
+	</tr>
+		
+	<tr>
+		<td class="TDleft"><label>注册资本[万元]：</label></td>
+		<td>
+		{$mo.zc_capital}
+		</td>
+		<td class="TDleft"><label>法人代表：</label></td>
+		<td>
+		{$mo.zc_legal_person}
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="TDleft"><label>经营范围：</label></td>
+		<td>
+		{$mo.zc_operate_scope}
+		</td>
+		<td class="TDleft"><label>注册时间：</label></td>
+		<td>
+		{$mo.zc_date}
+		</td>
+		
+	</tr>
+	<tr>
+		<td class="TDleft"><label>本地股东：</label></td>
+		<td>
+		{$mo.zc_local_shareholder}
+		</td>
+	    <td class="TDleft"><label>出资额[万元]：</label></td>
+		<td>
+		{$mo.zc_local_invest}
+		</td>
+		
+	</tr>
+	<tr>
+		<td class="TDleft"><label>市外股东：</label></td>
+		<td>
+		{$mo.zc_outside_shareholder}
+		</td>
+		<td class="TDleft"><label>出资额[万元]：</label></td>
+		<td>
+		{$mo.zc_outside_invest}
+		</td>
+	</tr>
+	<tr>
+		<td class="TDleft"><label>建设地点[注明园区]：</label></td>
+		<td>
+		{$mo.zc_build_place}
+		</td> 
+		<td class="TDleft"><label>项目用地[亩]：</label></td>
+		<td>
+		{$mo.zc_user_land}
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="TDleft"><label>项目引荐单位：</label></td>
+		<td>
+		{$mo.zc_recommend_company}
+		</td>
+		<td class="TDleft"><label>所属产业链：</label></td>
+		<td>
+			{$mo.zc_industry_chain}
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="TDleft"><label>注册备注：</label></td>
+		<td colspan="3">
+		{$mo.zc_remark}
+		</td>
+	</tr>
+	<tr>
+		<td class="TDleft"><label>注册提供附件：</label></td>
+		    	<td colspan="3">
+		    		  
+		    	
+		    		  
+<div id="div_attachment_zc">
+					
+		 <!-- 如果有附件就显示 -->	     
+	<notempty name="mo.zc_attachment_url">
+		  <foreach name="zc_attachment_urlArr" item="vo" key="k">   
+		     <div>	      
+		       <a href="{$vo}" target="_blank">{$zc_attachmentArr[$k]}</a>
+		       <input type="hidden" id="zc_attachment" name="zc_attachment[]" value="{$zc_attachmentArr[$k]}"  />
+		       <input type="hidden" id="zc_attachment_url" name="zc_attachment_url[]" value="{$vo}" />
+		       <!-- <a onclick="removeParent(this)"><img src="__PUBLIC__/images/remove.png" /></a> -->
+		     </div>	   
+		  </foreach>
+	</notempty>
+		    		  
+</div>  		  
+		    		<!-- <input type="file" id="file_zc" name="file_zc" onchange="doUploadZC()" /> -->
+		    	</td>
+	</tr>
+		 <tr>
+		    	<td class="TDleft"><label>高拍仪：</label></td>
+		    	<td colspan="3">
+		    		<div id="div_zc_gpy_attachment">
+	
+	<notempty name="mo.zc_gpy">
+		  <foreach name="zc_gpyArr" item="vo" key="k">   
+		     <div>	      
+		       <a href="__UPLOADS__/gpy/{$vo}" target="_blank">{$vo}</a>
+		     </div>	   
+		  </foreach>
+	</notempty>	
+		
+		    		</div>
+		    		
+   
+		    		
+		    	</td>
+		    </tr>
+</table>
+
+
+<script type="text/javascript">
+
+function doUploadZC(){
+	 $.ajaxFileUpload
+     (
+         {
+             url: '__APP__/Home/File/upload', //用于文件上传的服务器端请求地址
+             type: 'post',
+             data: { fileId: 'file_zc', name: 'lunis' }, //此参数非常严谨，写错一个引号都不行
+             secureuri: false, //一般设置为false
+             fileElementId: 'file_zc', //文件上传空间的id属性  <input type="file" id="file1" name="file1" />
+             dataType: 'text', //返回值类型 一般设置为json
+             success: function (data, status)  //服务器成功响应处理函数
+             {
+                var name=data.name;
+                var url=data.url;
+                var href = url;
+                 
+                
+               //alert(name+";"+url);
+                
+                var div = $('#div_attachment_zc');
+				var html = '<div>'
+						    +'<input type="hidden" name="zc_attachment[]" value="'+name+'">'
+							+'<input type="hidden" name="zc_attachment_url[]" value="'+url+'">'
+							+'<a href="'+href+'" target="_blank">'+name+'</a><a onclick="removeParent(this)"><img src="__PUBLIC__/images/remove.png"></a>'
+							+'</div>';
+				div.append(html);
+             },
+             error: function (data, status, e)//服务器响应失败处理函数
+             {
+                 alert(e);
+             }
+         }
+     );
+}
+
+         /**
+          *移除父对象 
+          */
+         function removeParent(obj){
+         	$(obj).parent().remove();
+         }
+</script>

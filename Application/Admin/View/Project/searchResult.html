@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>用户列表</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/theme.css">
+		<script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+		<script src="__PUBLIC__/validate/jquery.js"></script>
+    <script src="__PUBLIC__/validate/jquery.validate.min.js"></script>
+    <script src="__PUBLIC__/validate/localization/messages_zh.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/sysGeneral.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/systemUtils.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/DatePicker/WdatePicker.js"></script>
+
+	<script type="text/javascript">
+	
+	//导出到excel
+	   function doExcel(){
+	   	   $('#form1').submit();
+	   }
+
+	</script>
+	</head>
+
+	<body>
+		<div class="content">
+			<ul class="breadcrumb">
+				<li>
+					<a href="__APP__/Admin/Index/main.html">首页</a><span class="divider">/</span>
+				</li>
+				<li class="active">
+					新开工重点项目汇总
+				</li>
+			</ul>
+
+			<div class="container-fluid">
+				<div class="row-fluid">
+
+					<div class="btn-toolbar">						
+						<form class="form-inline" id="form1" action="__URL__/excelSearchResult" method="post">		
+						
+						 <input type="hidden" name="names" value="{$names}" />
+						 <input type="hidden" name="fileds" value="{$fileds}" />
+						 <input type="hidden" name="condition" value="{$condition}" />
+						
+						<a href="javascript:history.back();" class="btn">返回</a>
+						<a class="btn" onclick="doExcel()">导出到excel</a>
+						
+						</form>
+					</div>
+<div class="block-tab">
+    <table class="table-mins">
+							<thead>
+								<tr>
+									<foreach name="namesArr" item="vo" key="k">
+									 <th>{$namesArr[$k]}</th>
+									</foreach>
+								</tr>
+							</thead>
+							<tbody>
+								
+					    <empty name="list">
+						<tr>
+							<td colspan="20" align="center"><font color="red">查无数据</font></td>
+						</tr>
+						</empty>
+
+								<foreach name="list" item="vo" key="k">
+
+									<tr <eq name="k%2" value="0">
+										class="odd"
+										<else/>
+										class="even"
+									</eq>>
+									
+										<foreach name="filedsArr" item="ho" key="f">
+										  <td>
+										  	{$vo[$filedsArr[$f]]}
+										  </td>
+										</foreach>
+										
+										
+									</tr>
+
+								</foreach>
+
+			</tbody>
+						</table>
+					</div>
+
+											<div class="block-foot">
+											        <div class="pagination">
+											            {$page}
+											        </div>
+											</div>
+
+				</div>
+			</div>
+		</div>
+	</body>
+	
+</html>

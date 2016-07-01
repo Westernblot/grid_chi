@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>用户列表</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/theme.css">
+		<script src="__PUBLIC__/validate/jquery.js"></script>
+    <script src="__PUBLIC__/validate/jquery.validate.min.js"></script>
+    <script src="__PUBLIC__/validate/localization/messages_zh.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/sysGeneral.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/systemUtils.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript">
+	     $().ready(function() {
+                $("#form1").validate();
+         });
+
+	//导出到excel
+	   function doExcel(){
+	   	   $('#form1').submit();
+	   }
+</script>
+	</head>
+
+	<body>
+		<div class="content">
+			<ul class="breadcrumb">
+				<li>
+					<a href="__APP__/Admin/Index/main.html">首页</a><span class="divider">/</span>
+				</li>
+				<li class="active">
+					项目汇总
+				</li>
+			</ul>
+
+			<div class="container-fluid">
+				<div class="row-fluid">
+
+					<div class="btn-toolbar">						
+						<form class="form-inline" id="form1" action="__URL__/outsideExcel" method="get">								
+						
+							<table>
+								
+								<tr>
+									<td>
+										时间：
+									</td>
+									<td>
+						<input type="text" id="s_date" name="s_date" value="{$s_date}" class="Wdate"  onclick="WdatePicker({dateFmt:'yyyyMM'})" size="10" />
+						至
+						<input type="text" id="e_date" name="e_date" value="{$e_date}" class="Wdate"  onclick="WdatePicker({dateFmt:'yyyyMM'})" size="10" />
+									</td>
+								</tr>
+								
+								<tr>
+                                  <td>
+                                                                                                             审核状态：
+                                  </td>															
+                                  <td>
+						<select name="flag" >							
+							<option value="审核通过" >审核通过</option>
+							<option value="审核未通过" >审核未通过</option>
+							<option value="审核中" >审核中</option>
+							<option value="已保存" >已保存</option>
+						</select>
+                                  </td>
+								</tr>
+                               <tr>
+                               	<td>所属县市区：</td>
+                               	<td>                            		
+					 <select id="add_dept" name="add_dept[]" multiple="multiple" size="20">
+							<option value="" <eq name="add_dept" value="">selected</eq> >-查询所有-</option>
+							<option value="开发区" <eq name="add_dept" value="开发区">selected</eq> >开发区</option>
+							<option value="大冶市" <eq name="add_dept" value="大冶市">selected</eq> >大冶市</option>
+							<option value="阳新县" <eq name="add_dept" value="阳新县">selected</eq> >阳新县</option>
+							<option value="黄石港区" <eq name="add_dept" value="黄石港区">selected</eq> >黄石港区</option>
+							<option value="西塞山区" <eq name="add_dept" value="西塞山区">selected</eq> >西塞山区</option>
+							<option value="下陆区" <eq name="add_dept" value="下陆区">selected</eq> >下陆区</option>
+							<option value="铁山区" <eq name="add_dept" value="铁山区">selected</eq> >铁山区</option>
+							<option value="市经信委" <eq name="add_dept" value="市经信委">selected</eq> >市经信委</option>
+							<option value="市国资委" <eq name="add_dept" value="市国资委">selected</eq> >市国资委</option>
+							<option value="市科技局" <eq name="add_dept" value="市科技局">selected</eq> >市科技局</option>
+							<option value="市财政局" <eq name="add_dept" value="市财政局">selected</eq> >市财政局</option>
+							<option value="市商务委" <eq name="add_dept" value="市商务委">selected</eq> >市商务委</option>
+							<option value="市委统战部" <eq name="add_dept" value="市委统战部">selected</eq> >市委统战部</option>
+							<option value="市卫计委" <eq name="add_dept" value="市卫计委">selected</eq> >市卫计委</option>
+							<option value="市食药监局" <eq name="add_dept" value="市食药监局">selected</eq> >市食药监局</option>
+							<option value="市商务委" <eq name="add_dept" value="市商务委">selected</eq> >市商务委</option>
+							<option value="市房产局" <eq name="add_dept" value="市房产局">selected</eq> >市房产局</option>
+							<option value="市发改委" <eq name="add_dept" value="市发改委">selected</eq> >市发改委</option>
+							<option value="市台办" <eq name="add_dept" value="市台办">selected</eq> >市台办</option>						
+						</select>
+                               	</td>
+                               </tr>
+                               <tr>
+                               	<td></td>
+                               	<td>                            		
+						<!-- <a class="btn" onclick="doQuery()">查询</a> -->
+						<a class="btn" onclick="doExcel()">导出到excel</a>
+                               	</td>
+                               </tr>
+						
+							</table>	
+						</form>
+					</div>
+
+
+
+				</div>
+			</div>
+		</div>
+</html>

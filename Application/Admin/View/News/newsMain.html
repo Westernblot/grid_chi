@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>用户列表</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/theme.css">
+		<script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/sysGeneral.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/systemUtils.js"></script>
+
+	<script type="text/javascript">
+	   
+		//删除
+		function doDelete() {
+			var ids = getId('delete');
+			if (ids == false) {
+				return;
+			}
+			//alert(ids);
+			if (confirm("确定删除吗？")) {
+				location.href = '__URL__/delete?ids=' + ids;
+			}
+		}
+
+	</script>
+	</head>
+
+	<body>
+		<div class="content">
+			<ul class="breadcrumb">
+				<li>
+					<a href="__APP__/Admin/Index/main.html">首页</a><span class="divider">/</span>
+				</li>
+				<li class="active">
+					通知公告
+				</li>
+			</ul>
+
+			<div class="container-fluid">
+				<div class="row-fluid">
+
+					<div class="btn-toolbar">
+						<a href="__URL__/newsUI" class="btn btn-primary"><img src="__PUBLIC__/images/icon/plus.png"/> 新增</a>　　
+						
+						<button class="btn btn-danger pull-right" onclick="doDelete()">
+							<img src="__PUBLIC__/images/icon/cross.png"/> 删除
+						</button>
+						<div class="btn-group"></div>
+					</div>
+					<div class="block-tab">
+    <table class="table-mins">
+							<thead>
+								<tr>
+									<th width="5%">								
+									<input type="checkbox" name="checkbox" id="checkbox" onclick="checkAll(this)">
+									</th>
+									<th width="50%">标题</th>
+									<th width="10%">发布时间</th>
+									<th width="10%">添加人</th>
+									<th width="10%" colspan="2">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+                       <empty name="list">
+						<tr>
+							<td colspan="5" align="center"><font color="red">暂无记录</font></td>
+						</tr>
+						</empty>
+								<foreach name="list" item="vo" key="k">
+
+									<tr id="{$vo.id }" <eq name="k%2" value="0">
+										class="odd"
+										<else/>
+										class="even"
+									</eq>>
+										<td class="thcheckbox"><input type="checkbox" name="chk" id="chk" onclick="selTr(this);" ></td>
+										<td>{$vo.title}</td>
+										<td>{$vo.intime}</td>
+										<td>{$vo.add_name}</td>
+										<td>										
+											<a href="__URL__/seeNewsUI?id={$vo.id}">查看</a>
+										</td>
+										<td>										
+											<a href="__URL__/newsUI?id={$vo.id}">编辑</a>
+										</td>
+									</tr>
+
+								</foreach>
+
+
+							</tbody>
+						</table>
+					</div>
+
+											<div class="block-foot">
+											        <div class="pagination">
+											            {$page}
+											        </div>
+											</div>
+
+				</div>
+			</div>
+		</div>
+	</body>
+	
+</html>

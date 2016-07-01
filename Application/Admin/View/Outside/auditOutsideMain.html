@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>用户列表</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/theme.css">
+		<script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/js/sysGeneral.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/js/systemUtils.js"></script>
+
+	</head>
+
+	<body>
+		<div class="content">
+			<ul class="breadcrumb">
+				<li>
+					<a href="__APP__/Admin/Index/main.html">首页</a><span class="divider">/</span>
+				</li>
+				<li class="active">
+					驻外招商审核一览表
+				</li>
+			</ul>
+
+			<div class="container-fluid">
+				<div class="row-fluid">
+
+					<div class="btn-toolbar">
+						<form class="form-inline" action="__URL__/auditOutsideMain" method="post">
+							<!-- <a href="__URL__/outsideUI" class="btn btn-primary"><img src="__PUBLIC__/images/icon/plus.png"/> 新增</a>
+							<button class="btn btn-danger pull-right" onclick="doDelete()">
+							<img src="__PUBLIC__/images/icon/cross.png"/> 删除
+							</button> -->
+							审核状态:
+							<select id="flag" name="flag">
+								<option value="" <eq name="flag" value="">selected</eq>>-查询全部-</option>
+								<option value="审核中" <eq name="flag" value="审核中">selected</eq>>审核中</option>
+								<option value="审核通过" <eq name="flag" value="审核通过">selected</eq>>审核通过</option>
+								<option value="审核未通过" <eq name="flag" value="审核未通过">selected</eq>>审核未通过</option>
+							</select>
+							<include file="Public/sortdept" />
+							<!-- <select id="add_dept" name="add_dept">
+								<option value="" <eq name="add_dept" value="">selected</eq> >-查询所有-</option>
+								<foreach name="Think.session.deptList" item="vo" >
+									<option value="{$vo.dept}" <eq name="add_dept" value="$vo.dept">selected</eq> >{$vo.dept}</option>
+								</foreach>
+							</select> -->
+							<!-- <button class="btn" onclick="doQuery()">
+								查询
+							</button> -->
+							<input type="submit" class="btn" value="查询"/>
+						</form>
+
+					</div>
+					<div class="block-tab">
+						<table class="table-mins">
+							<thead>
+								<tr>
+									<th>
+									<input type="checkbox" name="checkbox" id="checkbox" onclick="checkAll(this)">
+									</th>
+									<th>编号</th>
+									<th>招商领导类型</th>
+									<th>部门</th>
+									<th>姓名</th>
+
+									<th>时间</th>
+									<th>天数</th>
+									<th>目的地</th>
+									<th>拜访企业名称</th>
+									<th>接洽人姓名</th>
+									<th>接洽人职务</th>
+									<th>状态</th>
+									<th colspan="2">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+
+                       <empty name="list">
+						<tr>
+							<td colspan="20" align="center"><font color="red">暂无记录</font></td>
+						</tr>
+						</empty>
+								<foreach name="list" item="vo" key="k">
+
+									<tr id="{$vo.id }" <eq name="k%2" value="0">
+										class="odd"
+										<else/>
+										class="even"
+									</eq>>
+										<td>
+										<input type="checkbox" name="chk" id="chk">
+										</td>
+										<td>{$np+$k+1}</td>
+										<td>{$vo.leader_type}</td>
+										<td>{$vo.dept}</td>
+										<td>{$vo.name}</td>
+
+										<td>{$vo.sdate}-{$vo.edate}</td>
+										<td>{$vo.num}</td>
+										<td>{$vo.dest}</td>
+										<td>{$vo.visit_company|subText=15}</td>
+										<td>{$vo.vister_man}</td>
+										<td>{$vo.vister_man_position|subText=15}</td>
+										<td><font color="red">{$vo.flag}</font></td>
+										<td><a href="__URL__/seeOutsideUI?id={$vo.id}">查看</a></td>
+										<td>
+										<eq name="vo.flag" value="审核中">
+											<a href="__URL__/auditOutsideUI?id={$vo.id}&flag={$flag}&add_dept={$add_dept}">审核</a>
+										</eq></td>
+									</tr>
+
+								</foreach>
+
+							</tbody>
+						</table>
+					</div>
+
+											<div class="block-foot">
+											        <div class="pagination">
+											            {$page}
+											        </div>
+											</div>
+
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>

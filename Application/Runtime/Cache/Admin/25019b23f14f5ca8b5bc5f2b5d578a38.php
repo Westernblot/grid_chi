@@ -1,0 +1,1 @@
+<?php if (!defined('THINK_PATH')) exit();?>你好，现在访问的是同Login方法

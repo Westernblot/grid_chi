@@ -1,0 +1,234 @@
+<table class="youAdd">
+	<tr>
+		<td class="TDleft"><label>工商注册号：<font color="red">*</font></label></td>
+		<td>
+		<input type="text" name="zc_register_no" value="{$mo.zc_register_no}" class="input-xlarge" required="true">
+		</td>
+		<td class="TDleft"><label>在黄注册名称：<font color="red">*</font></label></td>
+		<td>
+		<input type="text" name="zc_hs_name" value="{$mo.zc_hs_name}" class="input-xlarge" required="true">
+		</td>
+	</tr>
+		
+	<tr>
+		<td class="TDleft"><label>注册资本[万元]：<font color="red">*</font></label></td>
+		<td>
+		<input type="number" name="zc_capital" value="{$mo.zc_capital}" class="input-xlarge" required="true">
+		</td>
+		<td class="TDleft"><label>法人代表：<font color="red">*</font></label></td>
+		<td>
+		<input type="text" name="zc_legal_person" value="{$mo.zc_legal_person}" class="input-xlarge" required="true">
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="TDleft"><label>经营范围：<font color="red">*</font></label></td>
+		<td>
+		<input type="text" name="zc_operate_scope" value="{$mo.zc_operate_scope}" class="input-xlarge" required="true">
+		</td>
+		<td class="TDleft"><label>注册时间：<font color="red">*</font></label></td>
+		<td>
+		<input type="text" id="zc_date" name="zc_date" value="{$mo.zc_date}" class="Wdate"  onclick="WdatePicker({dateFmt:'yyyyMM'})" required="true">
+		</td>
+		
+	</tr>
+	<tr>
+		<td class="TDleft"><label>本地股东：</label></td>
+		<td>
+		<input type="text" name="zc_local_shareholder" value="{$mo.zc_local_shareholder}" class="input-xlarge">
+		</td>
+	    <td class="TDleft"><label>出资额[万元]：</label></td>
+		<td>
+		<input type="number" name="zc_local_invest" value="{$mo.zc_local_invest}" class="input-xlarge">
+		</td>
+		
+	</tr>
+	<tr>
+		<td class="TDleft"><label>市外股东：</label></td>
+		<td>
+		<input type="text" name="zc_outside_shareholder" value="{$mo.zc_outside_shareholder}" class="input-xlarge">
+		</td>
+		<td class="TDleft"><label>出资额[万元]：</label></td>
+		<td>
+		<input type="number" name="zc_outside_invest" value="{$mo.zc_outside_invest}" class="input-xlarge">
+		</td>
+	</tr>
+
+	<!-- <tr>
+		<td class="TDleft"><label>投资额[亿元]：</label></td>
+		<td>
+		<input type="text" name="zc_invest" value="{$mo.zc_invest}" class="input-xlarge">
+		</td>
+		<td class="TDleft"><label>占比：</label></td>
+		<td>
+		<input type="text" name="zc_rate" value="{$mo.zc_rate}" class="input-xlarge">
+		</td>
+	</tr> -->
+	
+	<tr>
+		<td class="TDleft"><label>建设地点[注明园区]：<font color="red">*</font></label></td>
+		<td>
+		<input type="text" name="zc_build_place" value="{$mo.zc_build_place}" class="input-xlarge" required="true">
+		</td> 
+		<td class="TDleft"><label>项目用地[亩]：<font color="red">*</font></label></td>
+		<td>
+		<input type="number" name="zc_user_land" value="{$mo.zc_user_land}" class="input-xlarge" required="true">
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="TDleft"><label>项目引荐单位：</label></td>
+		<td>
+		<input type="text" name="zc_recommend_company" value="{$mo.zc_recommend_company}" class="input-xlarge">
+		</td>
+		<td class="TDleft"><label>所属产业链：<font color="red">*</font></label></td>
+		<td>
+		<select id="zc_industry_chain" name="zc_industry_chain" required="true">
+			   <option value="" <eq name="mo.zc_industry_chain" value="">selected</eq>>-请选择-</option>
+			   <foreach name="Think.session.zidianList" item="vo" >  
+                    <eq name="vo.kind" value="所属产业链">          		
+                     	<option value="{$vo.name}" <eq name="mo.zc_industry_chain" value="$vo.name">selected</eq>>{$vo.name}</option>
+                    </eq>
+               </foreach>
+		</select>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="TDleft"><label>注册备注：</label></td>
+		<td colspan="3">
+		<textarea class="input-xxlarge" name="zc_remark">{$mo.zc_remark}</textarea>
+		</td>
+	</tr>
+	<tr>
+		<td class="TDleft"><label>注册提供附件：</label></td>
+		    	<td colspan="3">
+		    		  
+		    	
+		    		  
+<div id="div_attachment_zc">
+					
+		 <!-- 如果有附件就显示 -->	     
+	<notempty name="mo.zc_attachment_url">
+		  <foreach name="zc_attachment_urlArr" item="vo" key="k">   
+		     <div>	      
+		       <a href="{$vo}" target="_blank">{$zc_attachmentArr[$k]}</a>
+		       <input type="hidden" id="zc_attachment" name="zc_attachment[]" value="{$zc_attachmentArr[$k]}"  />
+		       <input type="hidden" id="zc_attachment_url" name="zc_attachment_url[]" value="{$vo}" />
+		       <a onclick="removeParent(this)"><img src="__PUBLIC__/images/remove.png" /></a>
+		     </div>	   
+		  </foreach>
+	</notempty>
+		    		  
+</div>  		  
+		    		<input type="file" id="file_zc" name="file_zc" onchange="doUploadZC()" />
+		    	</td>
+	</tr>
+	 <tr>
+		    	<td class="TDleft"><label>高拍仪：</label></td>
+		    	<td colspan="3">
+		    		<div id="div_zc_gpy_attachment">
+	
+	<notempty name="mo.zc_gpy">
+		  <foreach name="zc_gpyArr" item="vo" key="k">   
+		     <div>	      
+		       <a href="__UPLOADS__/gpy/{$vo}" target="_blank">{$vo}</a>
+		       <input type="hidden" id="zc_gpy" name="zc_gpy[]" value="{$vo}" />
+		       <a onclick="removeParent(this)"><img src="__PUBLIC__/images/remove.png" /></a>
+		     </div>	   
+		  </foreach>
+	</notempty>	
+		
+		    		</div>
+		    		<input type="button" name="" value="从高拍仪拍照" onclick="popLayerZC()" />
+		    		
+		    	</td>
+		    </tr>
+</table>
+
+
+<script type="text/javascript">
+
+    //弹出操作窗口
+	    function popLayerZC(){
+	    	
+	    //页面层
+    layer.open({
+        type: 2,
+        title: '从高拍仪拍照',
+        maxmin: true,
+        //shade:0,
+        shadeClose: true, //点击遮罩关闭层
+        area : ['800px' , '520px'],
+        content: '__APP__/Admin/Gpy/show.html',
+         btn: ['确定'],
+         yes: function(index, layero){
+             //do something
+             //alert(layer.getChildFrame('#div_gpy_attachment', index).text());
+             
+              var gpyArr = layer.getChildFrame('#div_gpy_attachment', index).text().split(";");
+             
+              var div = $('#div_zc_gpy_attachment');
+              for(var i=0;i<gpyArr.length;i++){
+              	var name = gpyArr[i];
+              	if(name!=''){             		
+				var html = '<div>'
+						    +'<a href="__UPLOADS__/gpy/'+name+'" target="_blank">'+name+'</a>'
+		                    +'<input type="hidden" id="zc_gpy" name="zc_gpy[]" value="'+name+'" />'
+		                    +'<a onclick="removeParent(this)"><img src="__PUBLIC__/images/remove.png" /></a>'
+							+'</div>';
+				div.append(html);
+              	}
+              }
+             
+             
+             
+          layer.close(index); //如果设定了yes回调，需进行手工关闭
+         }
+    });
+	    
+	    }
+
+
+function doUploadZC(){
+	 $.ajaxFileUpload
+     (
+         {
+             url: '__APP__/Home/File/upload', //用于文件上传的服务器端请求地址
+             type: 'post',
+             data: { fileId: 'file_zc', name: 'lunis' }, //此参数非常严谨，写错一个引号都不行
+             secureuri: false, //一般设置为false
+             fileElementId: 'file_zc', //文件上传空间的id属性  <input type="file" id="file1" name="file1" />
+             dataType: 'text', //返回值类型 一般设置为json
+             success: function (data, status)  //服务器成功响应处理函数
+             {
+                var name=data.name;
+                var url=data.url;
+                var href = url;
+                 
+                
+               //alert(name+";"+url);
+                
+                var div = $('#div_attachment_zc');
+				var html = '<div>'
+						    +'<input type="hidden" name="zc_attachment[]" value="'+name+'">'
+							+'<input type="hidden" name="zc_attachment_url[]" value="'+url+'">'
+							+'<a href="'+href+'" target="_blank">'+name+'</a><a onclick="removeParent(this)"><img src="__PUBLIC__/images/remove.png"></a>'
+							+'</div>';
+				div.append(html);
+             },
+             error: function (data, status, e)//服务器响应失败处理函数
+             {
+                 alert(e);
+             }
+         }
+     );
+}
+
+         /**
+          *移除父对象 
+          */
+         function removeParent(obj){
+         	$(obj).parent().remove();
+         }
+</script>

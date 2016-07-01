@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>用户列表</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/theme.css">
+		<script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+		<script src="__PUBLIC__/validate/jquery.js"></script>
+    <script src="__PUBLIC__/validate/jquery.validate.min.js"></script>
+    <script src="__PUBLIC__/validate/localization/messages_zh.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/sysGeneral.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/systemUtils.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/DatePicker/WdatePicker.js"></script>
+
+	<script type="text/javascript">
+	     $().ready(function() {
+                $("#form1").validate();
+         });
+
+	//查询
+	   function doQuery(){
+	   	   $('#form1').attr('action','__SELF__');
+	   	   $('#form1').submit();
+	   } 
+	
+	</script>
+	</head>
+
+	<body>
+		<div class="content">
+			<ul class="breadcrumb">
+				<li>
+					<a href="__APP__/Admin/Index/main.html">首页</a><span class="divider">/</span>
+				</li>
+				<li class="active">
+					招商引资工作汇总表
+				</li>
+			</ul>
+
+			<div class="container-fluid">
+				<div class="row-fluid">
+
+					<div class="btn-toolbar">						
+						<form class="form-inline" id="form1" action="" method="post">		
+						时间：
+						<input type="text" id="s_date" name="s_date" value="{$s_date}" class="Wdate"  onclick="WdatePicker({dateFmt:'yyyyMM'})" size="10" />
+						至
+						<input type="text" id="e_date" name="e_date" value="{$e_date}" class="Wdate"  onclick="WdatePicker({dateFmt:'yyyyMM'})" size="10" />
+						总投资额大于等于[亿]:<input type="number" name="qy_total_invest" value="{$qy_total_invest}" size="3">
+						审核状态：<select name="flag" >
+							<option value="" <eq name="flag" value="">selected</eq>>-查询所有-</option>
+							<option value="审核通过" <eq name="flag" value="审核通过">selected</eq>>审核通过</option>
+							<option value="审核未通过" <eq name="flag" value="审核未通过">selected</eq>>审核未通过</option>
+							<option value="审核中" <eq name="flag" value="审核中">selected</eq>>审核中</option>
+							<option value="已保存" <eq name="flag" value="已保存">selected</eq>>已保存</option>
+						</select>
+						<a class="btn" onclick="doQuery()">查询</a>
+						<!-- <a class="btn" onclick="doExcel()">导出到excel</a> -->
+						
+						</form>
+					</div>
+<div class="block-tab">
+    <table class="table-mins">
+							<thead>
+								<tr>
+									<th rowspan="2">单位</th>								
+									<th colspan="5">新注册重点项目</th>																
+									<th rowspan="2">新开工重点项目数[个数]</th>
+									<th rowspan="2">新投产重点项目数[个数]</th>
+								</tr>
+								<tr>									
+									<th>项目数</th>
+									<th>其中：重大项目数</th>
+									<th>合同投资总额[亿元]</th>
+									<th>一期投资额[亿元]</th>
+									<th>注册资本额[万元]</th>																		
+								</tr>
+							</thead>
+							<tbody>
+								
+								<tr class="odd">
+									<td>开发区</td>
+									<td>{$kfq.res1}</td>
+									<td>{$kfq.res2}</td>
+									<td>{$kfq.res3}</td>
+									<td>{$kfq.res4}</td>
+									<td>{$kfq.res5}</td>
+									<td>{$kfq.res6}</td>
+									<td>{$kfq.res7}</td>
+								</tr>
+								<tr class="even">
+									<td>大冶市</td>
+									<td>{$dy.res1}</td>
+									<td>{$dy.res2}</td>
+									<td>{$dy.res3}</td>
+									<td>{$dy.res4}</td>
+									<td>{$dy.res5}</td>
+									<td>{$dy.res6}</td>
+									<td>{$dy.res7}</td>
+								</tr>
+								<tr class="odd">
+									<td>阳新县</td>
+									<td>{$yx.res1}</td>
+									<td>{$yx.res2}</td>
+									<td>{$yx.res3}</td>
+									<td>{$yx.res4}</td>
+									<td>{$yx.res5}</td>
+									<td>{$yx.res6}</td>
+									<td>{$yx.res7}</td>
+								</tr>
+								<tr class="even">
+									<td>黄石港区</td>
+									<td>{$hsg.res1}</td>
+									<td>{$hsg.res2}</td>
+									<td>{$hsg.res3}</td>
+									<td>{$hsg.res4}</td>
+									<td>{$hsg.res5}</td>
+									<td>{$hsg.res6}</td>
+									<td>{$hsg.res7}</td>
+								</tr>
+								<tr class="odd">
+									<td>西塞山区</td>
+									<td>{$xss.res1}</td>
+									<td>{$xss.res2}</td>
+									<td>{$xss.res3}</td>
+									<td>{$xss.res4}</td>
+									<td>{$xss.res5}</td>
+									<td>{$xss.res6}</td>
+									<td>{$xss.res7}</td>
+								</tr>
+								<tr class="even">
+									<td>下陆区</td>
+									<td>{$xl.res1}</td>
+									<td>{$xl.res2}</td>
+									<td>{$xl.res3}</td>
+									<td>{$xl.res4}</td>
+									<td>{$xl.res5}</td>
+									<td>{$xl.res6}</td>
+									<td>{$xl.res7}</td>
+								</tr>
+								<tr class="odd">
+									<td>铁山区</td>
+									<td>{$ts.res1}</td>
+									<td>{$ts.res2}</td>
+									<td>{$ts.res3}</td>
+									<td>{$ts.res4}</td>
+									<td>{$ts.res5}</td>
+									<td>{$ts.res6}</td>
+									<td>{$ts.res7}</td>
+								</tr>
+								<tr class="even">
+									<td><font color="red"><b>合计</b></font></td>									
+									<td>
+										<font color="red"><b>
+										{$kfq['res1']+$dy['res1']+$yx['res1']+$hsg['res1']+$xss['res1']+$xl['res1']+$ts['res1']}
+										</b></font>
+									</td>
+									<td>
+										<font color="red"><b>
+										{$kfq['res2']+$dy['res2']+$yx['res2']+$hsg['res2']+$xss['res2']+$xl['res2']+$ts['res2']}
+										</b></font>
+									</td>
+									<td>
+										<font color="red"><b>
+										{$kfq['res3']+$dy['res3']+$yx['res3']+$hsg['res3']+$xss['res3']+$xl['res3']+$ts['res3']}
+										</b></font>
+									</td>
+									<td>
+										<font color="red"><b>
+										{$kfq['res4']+$dy['res4']+$yx['res4']+$hsg['res4']+$xss['res4']+$xl['res4']+$ts['res4']}
+										</b></font>
+									</td>
+									<td>
+										<font color="red"><b>
+										{$kfq['res5']+$dy['res5']+$yx['res5']+$hsg['res5']+$xss['res5']+$xl['res5']+$ts['res5']}
+										</b></font>
+									</td>
+									<td>
+										<font color="red"><b>
+										{$kfq['res6']+$dy['res6']+$yx['res6']+$hsg['res6']+$xss['res6']+$xl['res6']+$ts['res6']}
+										</b></font>
+									</td>
+									<td>
+										<font color="red"><b>
+										{$kfq['res7']+$dy['res7']+$yx['res7']+$hsg['res7']+$xss['res7']+$xl['res7']+$ts['res7']}
+										</b></font>
+									</td>								
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+
+											<div class="block-foot">
+											        <div class="pagination">
+											            {$page}
+											        </div>
+											</div>
+
+				</div>
+			</div>
+		</div>
+	</body>
+	
+</html>

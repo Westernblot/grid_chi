@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>用户列表</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/theme.css">
+	</head>
+
+	<body>
+		<div class="content">
+			<ul class="breadcrumb">
+				<li>
+					<a href="__APP__/Admin/Index/main.html">首页</a><span class="divider">/</span>
+				</li>
+				<li class="active">
+					新开工项目汇总
+				</li>
+			</ul>
+
+			<div class="container-fluid">
+				<div class="row-fluid">
+
+					<div class="btn-toolbar">
+						<form class="form-inline">
+						审核状态:<select id="kg_flag" name="kg_flag">
+							<option value="" <eq name="kg_flag" value="">selected</eq>>-查询全部-</option>
+							<option value="审核中" <eq name="kg_flag" value="审核中">selected</eq>>审核中</option>
+							<option value="审核通过" <eq name="kg_flag" value="审核通过">selected</eq>>审核通过</option>
+							<option value="审核未通过" <eq name="kg_flag" value="审核未通过">selected</eq>>审核未通过</option>
+						</select>
+						时间：<input type="text" id="kg_date" name="kg_date" value="{$kg_date}" class="Wdate"  onclick="WdatePicker({dateFmt:'yyyyMM'})"/>
+						<button class="btn" onclick="doQuery()">查询</button>
+						<button class="btn" onclick="doExcel()">导出到excel</button></form>
+					</div>
+					<div class="block-tab">
+    <table class="table-mins">
+							<thead>
+								<tr>
+									<th>
+									<input type="checkbox" name="checkbox" id="checkbox" onclick="checkAll(this)">
+									</th>
+									<th>编号</th>
+									<th>投资方名称</th>
+									<th>在黄注册名称</th>
+									<th>注册时间</th>
+									<th>法人代表</th>
+									<th>注册资本（万元）</th>
+									<th>总投资额（亿元）</th>
+									<th>一期投资额（亿元）</th>
+									<th>投资方实际到资额（亿元）</th>
+									<th>项目建设内容</th>
+									<th>产业类别</th>
+									<th>开工时间</th>
+									<th>建设地点（注明园区）</th>
+									<th>项目用地（亩）</th>
+									<th>状态</th>
+									<th>审核状态</th>
+									<th>&nbsp;</th>
+								</tr>
+							</thead>
+							<tbody>
+
+								<foreach name="list" item="vo" key="k">
+
+									<tr id="{$vo.id }">
+										<td>
+										<input type="checkbox" name="chk" id="chk">
+										</td>
+										<td>{$vo.id}</td>
+										<td>{$vo.qy_outside_investor}</td>
+										<td>{$vo.zc_hs_name}</td>
+										<td>{$vo.zc_date}</td>
+										<td>{$vo.zc_legal_person}</td>
+										<td>{$vo.zc_capital}</td>
+										<td>{$vo.qy_total_invest}</td>
+										<td>{$vo.zc_first_invest}</td>
+										<td>{$vo.kg_actual_in_invest}</td>
+										<td>{$vo.qy_build_content}</td>
+										<td>{$vo.qy_industry_category}</td>
+										<td>{$vo.kg_date}</td>
+										<td>{$vo.zc_build_place}</td>
+										<td>{$vo.zc_user_land}</td>
+										<td><font color="red">{$vo.kg_status}</font></td>
+										<td><font color="red">{$vo.kg_flag}</font></td>
+										<td>
+											<a href="__URL__/seeProjectUI?id={$vo.id}">查看</a>
+										</td>
+									</tr>
+
+								</foreach>
+
+				</tbody>
+						</table>
+					</div>
+
+											<div class="block-foot">
+											        <div class="pagination">
+											            {$page}
+											        </div>
+											</div>
+
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.4.1.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/ajaxfileupload.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/sysGeneral.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/systemUtils.js"></script>
+
+	<script type="text/javascript">
+		//导出到excel
+	function doExcel(){
+		    var kg_flag= $('#kg_flag').val();
+			var kg_date= $('#kg_date').val();
+			location.href="__URL__/excelCollectKgProject?kg_flag="+kg_flag+"&kg_date="+kg_date;
+	}
+	
+	//查询
+	    function doQuery(){
+			var kg_flag= $('#kg_flag').val();
+			var kg_date= $('#kg_date').val();
+			location.href="__URL__/collectKgProject?kg_flag="+kg_flag+"&kg_date="+kg_date;
+		}
+
+		
+	</script>
+</html>

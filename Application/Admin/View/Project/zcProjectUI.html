@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>用户列表</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/theme.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/combo/dhtmlxcombo.css"/>
+		<script src="__PUBLIC__/js/combo/dhtmlxcombo.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/js/jquery-1.4.1.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/layer/jquery-1.9.1.js"></script>
+	<script src="__PUBLIC__/validate/jquery.js"></script>
+    <script src="__PUBLIC__/validate/jquery.validate.min.js"></script>
+    <script src="__PUBLIC__/validate/localization/messages_zh.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/js/DatePicker/WdatePicker.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/js/sysGeneral.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/js/systemUtils.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/js/ajaxfileupload.js"></script>
+
+		<script type="text/javascript" src="__PUBLIC__/layer/layer.js"></script>
+		<script type="text/javascript">
+		 $().ready(function() {
+                $("#form1").validate();
+         });
+			//提交审核
+			function submitAudit() {
+					// var checked = checkForm('#form1');
+					// if (checked == false) {
+						// return;
+				// }
+					//========================投资额超过100亿元提醒=====================
+				var qy_total_invest= $("input[name='qy_total_invest']").val();
+				var qy_first_invest= $("input[name='qy_first_invest']").val();
+				
+				if(qy_total_invest>100 || qy_first_invest>100){
+					if(confirm("提示：投资额超过了100亿元！确定吗?")){
+						$('#qy_flag').attr('value','已保存');
+				        $('#form1').submit();
+					}
+					return;
+				}
+				//===========================================================
+				$('#zc_flag').attr('value','审核中');
+				$('#form1').submit();
+			}
+			//提交表单
+			function saveForm() {
+					// var checked = checkForm('#form1');
+					// if (checked == false) {
+						// return;
+				// }
+					//========================投资额超过100亿元提醒=====================
+				var qy_total_invest= $("input[name='qy_total_invest']").val();
+				var qy_first_invest= $("input[name='qy_first_invest']").val();
+				
+				if(qy_total_invest>100 || qy_first_invest>100){
+					if(confirm("提示：投资额超过了100亿元！确定吗?")){
+						$('#qy_flag').attr('value','已保存');
+				        $('#form1').submit();
+					}
+					return;
+				}
+				//===========================================================
+				$('#zc_flag').attr('value','已保存');
+				$('#form1').submit();
+			}
+		</script>
+	</head>
+
+	<body>
+		<div class="content">
+			<ul class="breadcrumb">
+				<li>
+					<a href="__APP__/Admin/Index/main.html">首页</a><span class="divider">/</span>
+				</li>
+				<li>
+					<a href="__APP__/Admin/Project/zcProjectMain">注册项目一览表</a><span class="divider">/</span>
+				</li>
+				<li class="active">
+					添加项目
+				</li>
+			</ul>
+
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<div class="btn-toolbar">
+						<button class="btn btn-primary" onclick="saveForm()">
+							<img src="__PUBLIC__/images/icon/clipboard.png" class="clipboard"/> 保存
+						</button>
+						<a href="javascript:submitAudit()" class="btn">提交审核</a>
+						<a href="javascript:history.back();" class="btn">返回</a>
+						<div class="btn-group"></div>
+					</div>
+					<div class="well you-bg">
+						<form id="form1" action="{$mo==null?'__URL__/insert':'__URL__/update'}?toPage={$toPage}" method="post">
+							<input type="hidden" name="id" value="{$mo.id}" />
+							<input type="hidden" name="zc_status" value="已注册" />
+							<input type="hidden" id="zc_flag" name="zc_flag" value="" />
+
+							
+
+							<font color="red"><h3>签约信息</h3></font>
+							<hr>
+							<!-- 签约项目模板 -->
+							<include file="Public/qy" />
+
+							<font color="red"><h3>注册信息</h3></font>
+							<hr>
+							<!-- 签约项目模板 -->
+							<include file="Public/zc" />
+
+							<h3>审核信息</h3>
+							<font color="blue" size="4">{$mo.zc_opinion}</font>
+
+							<!-- <fieldset>
+							<legend>
+							<small>填表说明：</small>
+							</legend>
+							<p class="table-notes">
+							1、投资方名称填写投资方工商营业执照信息，若为自然人投资填写自然人姓名和户籍地。
+							<br/>
+							2、在黄注册名称、注册时间、法人代表、注册资本均填写黄石新注册营业执照信息。
+							<br/>
+							3、项目建设内容、总投资额、一期投资额、签约时间、建设地点、项目用地参照合同约定进行填写。
+							<br/>
+							4、产业类别填写工业、农业、服务业。
+							<br/>
+							5、所属产业链参照合同约定投资内容按照特钢及汽车零部件、电子信息及新材料、高端装备制造及智能模具、节能环保及资源回收利用、医药化工、现代服务业六大产业链填写，不属于以上六大产业链的项目填写其他。
+							<br/>
+							6、项目引荐单位处空白视同该项目无引荐单位，后期不得更改。
+							</p>
+							</fieldset> -->
+
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>

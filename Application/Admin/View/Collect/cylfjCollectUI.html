@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>用户列表</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/theme.css">
+		<script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+		<script src="__PUBLIC__/validate/jquery.js"></script>
+    <script src="__PUBLIC__/validate/jquery.validate.min.js"></script>
+    <script src="__PUBLIC__/validate/localization/messages_zh.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/sysGeneral.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/systemUtils.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/DatePicker/WdatePicker.js"></script>
+
+	<script type="text/javascript">
+	     $().ready(function() {
+                $("#form1").validate();
+         });
+
+	//导出到excel
+	   function doExcel(){
+	   	   var form1 = $('#form1');
+	   	   
+	   	   var tb_type = $('#tb_type').val();
+	   	   if(tb_type=='产业链招商分局工作目标进度汇总表'){  
+	   	   	   form1.attr('action','__URL__/destCollect');   	   	   
+	   	   }else if(tb_type=='产业链招商分局新开工重点项目一览表'){   	   	  
+	   	   	   form1.attr('action','__URL__/fjKgExcel');
+	   	   }else if(tb_type=='产业链招商分局新注册重点项目一览表'){	   	   	   
+	   	   	   form1.attr('action','__URL__/fjZcExcel');	   	   	
+	   	   }else if(tb_type=='产业链招商分局驻外招商进度汇总表'){
+	   	   	   form1.attr('action','__URL__/cylOutsideCollect');	   	
+	   	   }
+	   	   
+	   	   $('#form1').submit();
+	   }
+
+	</script>
+	</head>
+
+	<body>
+		<div class="content">
+			<ul class="breadcrumb">
+				<li>
+					<a href="__APP__/Admin/Index/main.html">首页</a><span class="divider">/</span>
+				</li>
+				<li class="active">
+					项目汇总
+				</li>
+			</ul>
+
+			<div class="container-fluid">
+				<div class="row-fluid">
+
+					<div class="btn-toolbar">						
+						<form class="form-inline" id="form1" action="" method="post">								
+						<input type="hidden" name="qy_total_invest" value="{$qy_total_invest}" size="3">
+							<table>
+								<tr>
+									<td>
+										导出表类型<font color="red">*</font>
+									</td>
+									<td>
+										<select name="tb_type" id="tb_type" required >
+											<option value="" >-请选择-</option>
+											<option value="产业链招商分局工作目标进度汇总表" >产业链招商分局工作目标进度汇总表</option>
+											<option value="产业链招商分局新开工重点项目一览表" >产业链招商分局新开工重点项目一览表</option>
+											<option value="产业链招商分局新注册重点项目一览表" >产业链招商分局新注册重点项目一览表</option>
+											<option value="产业链招商分局驻外招商进度汇总表" >产业链招商分局驻外招商进度汇总表</option>
+											
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										时间：
+									</td>
+									<td>
+						<input type="text" id="s_date" name="s_date" value="{$s_date}" class="Wdate"  onclick="WdatePicker({dateFmt:'yyyyMM'})" size="10" />
+						至
+						<input type="text" id="e_date" name="e_date" value="{$e_date}" class="Wdate"  onclick="WdatePicker({dateFmt:'yyyyMM'})" size="10" />
+									</td>
+								</tr>
+																
+                               <tr>
+                               	<td> </td>
+                               	<td>                            		
+						<!-- <a class="btn" onclick="doQuery()">查询</a> -->
+						<a class="btn" onclick="doExcel()">导出到excel</a>
+                               	</td>
+                               </tr>
+						
+							</table>	
+						</form>
+					</div>
+
+
+
+				</div>
+			</div>
+		</div>
+	</body>
+	
+</html>

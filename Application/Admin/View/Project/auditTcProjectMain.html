@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>用户列表</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/theme.css">
+		<script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/sysGeneral.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/systemUtils.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/DatePicker/WdatePicker.js"></script>
+
+	<script type="text/javascript">
+	    function doQuery(){
+			$('#form1').submit();
+		}
+		//撤销审核
+		function resetAudit(field,fieldValue){
+				var ids = getId('delete');
+				if (ids == false) {
+					return;
+				}
+				//alert(ids);
+				if (confirm("确定操作吗？")) {
+					location.href = "__URL__/cmdAudit?ids=" + ids+"&field="+field+"&fieldValue="+fieldValue;
+				}
+		}
+	</script>
+	</head>
+
+	<body>
+		<div class="content">
+			<ul class="breadcrumb">
+				<li>
+					<a href="__APP__/Admin/Index/main.html">首页</a><span class="divider">/</span>
+				</li>
+				<li class="active">
+					投产项目一览表
+				</li>
+			</ul>
+
+			<div class="container-fluid">
+				<div class="row-fluid">
+
+					<div class="btn-toolbar">
+						<a class="btn btn-danger pull-right" onclick="resetAudit('tc_flag','审核中')">
+							撤销审核
+						</a> 
+						<form class="form-inline"  id="form1" action="__URL__/auditTcProjectMain" method="get">				
+						审核状态:<select id="flag" name="flag">
+							<option value="" <eq name="flag" value="">selected</eq>>-查询全部-</option>
+							<option value="审核中" <eq name="flag" value="审核中">selected</eq>>审核中</option>
+							<option value="审核通过" <eq name="flag" value="审核通过">selected</eq>>审核通过</option>
+							<option value="暂未通过" <eq name="flag" value="暂未通过">selected</eq>>暂未通过</option>
+							<option value="审核未通过" <eq name="flag" value="审核未通过">selected</eq>>审核未通过</option>
+						</select>
+						<include file="Public/sortdept" />
+						时间：
+						<input type="text" id="s_date" name="s_date" value="{$s_date}" class="Wdate"  onclick="WdatePicker()" />
+						至
+						<input type="text" id="e_date" name="e_date" value="{$e_date}" class="Wdate"  onclick="WdatePicker()" />
+						
+						<button class="btn" onclick="doQuery()">查询</button>
+						</form>
+						
+					</div>
+					<div class="block-tab">
+    <table class="table-mins table-nowrap">
+							<thead>
+								<tr>
+									<th>
+									<input type="checkbox" name="checkbox" id="checkbox" onclick="checkAll(this)">
+									</th>
+									<th>编号</th>
+									<th>填报单位</th>
+									<th>投资方名称</th>
+									<th>在黄注册名称</th>
+									<th>法人代表</th>
+									<th>注册时间</th>
+									<th>注册资本[万元]</th>
+									<th>总投资额[亿元]</th>
+									<!-- <th>累计实际到资额[亿元]</th> -->
+									<th>项目建设内容</th>
+									<th>产业类别</th>
+									<th>投产时间</th>
+									<!-- <th>建设地点[注明园区]</th>
+									<th>项目用地[亩]</th>
+									<th>月度销售收入[亿元]</th>
+									<th>备注</th>
+
+									<th>审核状态</th>
+									<th colspan="2">操作</th> -->
+								</tr>
+							</thead>
+							<tbody>
+								
+						<empty name="list">
+						<tr>
+							<td colspan="20" align="center"><font color="red">查无数据</font></td>
+						</tr>
+						</empty>
+
+								<foreach name="list" item="vo" key="k">
+
+									<tr id="{$vo.id }" <eq name="k%2" value="0">
+										class="odd"
+										<else/>
+										class="even"
+									</eq>>
+										 <td>
+										<input type="checkbox" name="chk" id="chk">
+										</td>
+										<td>{$np+$k+1}</td>
+										<td>
+											{$vo.add_dept}
+										 
+										</td>
+										<td>{$vo.qy_outside_investor|subtext=12}</td>
+										<td>
+											 <a href="__URL__/auditTcProjectUI?id={$vo.id}&flag={$flag}&add_dept={$add_dept}&s_date={$s_date}&e_date={$e_date}"><egt name="vo.qy_total_invest" value="5">										   	
+											<img src="__PUBLIC__/images/icon/flag.png"/>
+										      </egt>
+											{$vo.zc_hs_name|subtext=16}</a>
+										</td>
+										<td>{$vo.zc_legal_person}</td>
+										<td>{$vo.zc_date}</td>
+										<td>{$vo.zc_capital}</td>
+										<td>{$vo.qy_total_invest}</td>
+										<!-- <td>{$vo.tc_accumulative_in_invest}</td> -->
+										<td>{$vo.qy_build_content|subtext=20}</td>
+										<td>{$vo.qy_industry_category}</td>
+										<td>{$vo.tc_date}</td>
+										
+										<!-- <td>{$vo.zc_build_place}</td>
+										<td>{$vo.zc_user_land}</td>
+										<td>{$vo.tc_month_sale_money}</td>
+										<td>{$vo.tc_remark}</td>
+
+										<td><font color="red">{$vo['tc_status']!='已投产'?'error':''}{$vo.tc_flag}</font></td>
+										<td>
+											<a href="__URL__/seeProjectUI?id={$vo.id}&showNum=5">查看</a></td>
+										<td>
+											<a href="__URL__/tcProjectUI?id={$vo.id}">编辑</a>
+											<a href="__URL__/tcProjectUI?id={$vo.id}&toPage=tcProjectMain">变更投产项目</a> 
+										    <eq name="vo.tc_flag" value="审核中">											
+											<a href="__URL__/auditTcProjectUI?id={$vo.id}">审核</a>
+											</eq>
+										</td> -->
+									</tr>
+
+								</foreach>
+
+							</tbody>
+						</table>
+					</div>
+
+											<div class="block-foot">
+											        <div class="pagination">
+											            {$page}
+											        </div>
+											</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	
+</html>

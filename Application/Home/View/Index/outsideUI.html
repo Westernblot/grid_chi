@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>用户列表</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/theme.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/js/combo/dhtmlxcombo.css"/>
+		<script src="__PUBLIC__/js/combo/dhtmlxcombo.js"></script>
+
+	</head>
+
+	<body>
+		<div class="content">
+			<ul class="breadcrumb">
+				<li>
+					<a href="__APP__/Admin/Index/main.html">首页</a><span class="divider">/</span>
+				</li>
+				<li>
+					<a href="__APP__/Admin/Project/ztProjectMain">驻外招商一览表</a><span class="divider">/</span>
+				</li>
+				<li class="active">
+					添加项目
+				</li>
+			</ul>
+
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<div class="btn-toolbar">
+						<button class="btn btn-primary" onclick="saveForm()">
+							<img src="__PUBLIC__/images/icon/clipboard.png" class="clipboard"/> 保存
+						</button>
+						<a href="javascript:history.back();" class="btn">返回</a>
+						<div class="btn-group"></div>
+					</div>
+					<div class="well you-bg">
+						<form id="form1" action="{$mo==null?'__URL__/insert':'__URL__/update'}?toPage={$toPage}" method="post">
+							<input type="hidden" name="id" value="{$mo.id}" />
+							<input type="hidden" name="flag" value="审核中" />
+
+							<table class="youAdd">
+								
+								<tr>
+									<td class="TDleft"><label>姓名：</label></td>
+									<td>
+									<input type="text" name="name" value="{$mo.name}" class="input-large">
+									</td>
+									<td class="TDleft"><label>部门：</label></td>
+									<td>
+									<input type="text" name="dept" value="{$mo.dept|default=$_SESSION['user']['dept']}" class="input-large">
+									</td>
+								</tr>
+								<tr>
+									<td class="TDleft"><label>招商领导类型：</label></td>
+									<td>
+									<!-- <input type="text" name="leader_type" value="{$mo.name|default=$_SESSION['user']['cnname']}" class="input-large"> -->
+									<select name="leader_type">
+										<option value="" <eq name="mo.leader_type" value="">selected</eq> >-请选择-</option>
+										<option value="党政主职" <eq name="mo.leader_type" value="党政主职">selected</eq> >党政主职</option>
+										<option value="分局局长" <eq name="mo.leader_type" value="分局局长">selected</eq> >分局局长</option>
+										<option value="其他"  <eq name="mo.leader_type" value="其他">selected</eq> >其他</option>
+									</select>
+									
+									</td>
+									<td class="TDleft"><label>到达目的地：</label></td>
+									<td>
+									<input type="text" name="dest" value="{$mo.dest}" class="input-large">
+									</td>
+								</tr>
+								<tr>
+									<td class="TDleft"><label>时间：</label></td>
+									<td>
+									<input type="text" name="sdate" value="{$mo.sdate}" class="Wdate"  onclick="WdatePicker({dateFmt:'yyyyMM'})">
+									</td>
+									<!-- <td class="TDleft"><label>结束时间：</label></td>
+									<td>
+									<input type="text" name="edate" value="{$mo.edate}" class="Wdate"  onclick="WdatePicker()">
+									</td> -->
+									<td class="TDleft"><label>出访天数：</label></td>
+									<td>
+									<input type="text" name="num" value="{$mo.num}" class="input-large">
+									</td>
+								</tr>
+								<tr>
+									
+									<td class="TDleft"><label>拜访企业名称：</label></td>
+									<td>
+									<input type="text" name="visit_company" value="{$mo.visit_company}" class="input-large">
+									</td>
+									<td class="TDleft"><label>所属产业链：</label></td>
+		<td>
+		<select id="industry_chain" name="industry_chain">
+			   <option value="" <eq name="mo.industry_chain" value="">selected</eq>>-请选择-</option>
+			   <foreach name="Think.session.zidianList" item="vo" >  
+                    <eq name="vo.kind" value="所属产业链">          		
+                     	<option value="{$vo.name}" <eq name="mo.industry_chain" value="$vo.name">selected</eq>>{$vo.name}</option>
+                    </eq>
+               </foreach>
+		</select>
+		
+		</td>
+								</tr>
+								<tr>
+									<td class="TDleft"><label>接洽人姓名：</label></td>
+									<td>
+									<input type="text" name="vister_man" value="{$mo.vister_man}" class="input-large">
+									</td>
+									<td class="TDleft"><label>接洽人职务：</label></td>
+									<td colspan="3">
+									<input type="text" name="vister_man_position" value="{$mo.vister_man_position}" class="input-large">
+									</td>
+								</tr>
+								<tr>
+									<td class="TDleft"><label>备注：</label></td>
+									<td colspan="3">
+									 <textarea name="remark">{$mo.remark}</textarea>
+									</td>
+								</tr>
+      <tr>
+		    	<td align="right">附件</td>
+		    	<td colspan="3">
+		    		  
+		    	
+		    		  
+<div id="div_attachment">
+					
+		 <!-- 如果有附件就显示 -->	     
+	<notempty name="mo.attachment_url">
+		  <foreach name="attachment_urlArr" item="vo" key="k">   
+		     <div>	      
+		       <a href="{$vo}" target="_blank">{$attachmentArr[$k]}</a>
+		       <input type="hidden" id="attachment" name="attachment[]" value="{$attachmentArr[$k]}"  />
+		       <input type="hidden" id="attachment_url" name="attachment_url[]" value="{$vo}" />
+		       <a onclick="removeParent(this)"><img src="__PUBLIC__/images/remove.png" /></a>
+		     </div>	   
+		  </foreach>
+	</notempty>
+		    		  
+</div>  		  
+		    		<input type="file" id="file_attachment" name="file_attachment" onchange="doUpload(this)" />
+		    	</td>
+		    </tr>
+							</table>
+							
+							<h3>审核意见：</h3>
+							{$mo.opinion}
+							<hr>
+
+							<fieldset>
+								<legend>
+									<small>填表说明：</small>
+								</legend>
+								<p class="table-notes">
+									本表仅统计县市区党政主要负责人、分管领导以及招商局主要负责人外出情况.
+								</p>
+							</fieldset>
+
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.4.1.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/sysGeneral.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/systemUtils.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/ajaxfileupload.js"></script>
+	<script type="text/javascript">
+		function saveForm() {
+			var checked = checkForm('#form1');
+			if (checked == false) {
+				return;
+			}
+			$('#form1').submit();
+		}
+		
+		
+		//===================================附件上传===========================================
+
+function doUpload(){
+	 $.ajaxFileUpload
+     (
+         {
+             url: '__APP__/Home/File/upload', //用于文件上传的服务器端请求地址
+             type: 'post',
+             data: { fileId: 'file_attachment', name: 'lunis' }, //此参数非常严谨，写错一个引号都不行
+             secureuri: false, //一般设置为false
+             fileElementId: 'file_attachment', //文件上传空间的id属性  <input type="file" id="file1" name="file1" />
+             dataType: 'text', //返回值类型 一般设置为json
+             success: function (data, status)  //服务器成功响应处理函数
+             {
+                var name=data.name;
+                var url=data.url;
+                var href = url;
+                
+                
+               // alert(name+";"+url);
+                
+                var div = $('#div_attachment');
+				var html = '<div>'
+						    +'<input type="hidden" name="attachment[]" value="'+name+'">'
+							+'<input type="hidden" name="attachment_url[]" value="'+url+'">'
+							+'<a href="'+href+'" target="_blank">'+name+'</a><a onclick="removeParent(this)"><img src="__PUBLIC__/images/remove.png"></a>'
+							+'</div>';
+				div.append(html);
+             },
+             error: function (data, status, e)//服务器响应失败处理函数
+             {
+                 alert(e);
+             }
+         }
+     );
+}
+
+         /**
+          *移除父对象 
+          */
+         function removeParent(obj){
+         	$(obj).parent().remove();
+         }
+		
+	</script>
+</html>

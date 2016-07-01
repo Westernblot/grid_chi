@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>黄石市招商局信息报送系统</title>
+		<link href="__PUBLIC__/css/frame.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" src="__PUBLIC__/layer/jquery-1.9.1.js"></script>
+		<script type="text/javascript">
+			
+			//选择
+			function chMe(obj){
+				//alert($(obj).parent().parent().find('a').length);
+				$(obj).parent().parent().find('a').removeClass('active');
+				$(obj).addClass('active');
+			}
+			
+			//清除所有
+			function clearAll(obj){
+				$(obj).parent().find('a').removeClass('active');
+			}
+			
+		</script>
+	</head>
+<body>
+
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0" style="table-layout:fixed;">
+  <tr>
+    <td rowspan="2" width="187" id="frmTitle" noWrap name="fmTitle" align="center" valign="top" height="100%">
+    	<div id="div_left">
+			<div class="gs_logo"><img src="__PUBLIC__/images/frame/top_logo.png" style="margin-top: 20px;"/></div>
+			<div class="sidebar-nav">			
+				<foreach  name="Think.session.menuList" item="base" key="k">
+					<eq name="base['pid']" value="0">
+						<a id="sub0{$k}" class="menu" onclick="clearAll(this)"><h3>&nbsp;&nbsp;&nbsp;&nbsp;{$base.name}</h3><i class="ico_menuarrow"></i></a>
+						<ul class="i-sub0{$k} nav-list">
+						<foreach  name="Think.session.menuList" item="sub">
+							<eq name="sub['pid']" value="$base['id']">							
+							<li>
+						       <a onclick="chMe(this)" class="" href="__APP__/{$sub.action}" target="frmright">{$sub.name}</a>
+					        </li>
+							</eq>
+						</foreach>
+						</ul>
+					</eq>
+				</foreach>
+			</div>
+		</div>
+    </td>
+    <td rowspan="2" width="8" valign="middle" background="__PUBLIC__/images/main_12.gif" onclick="switchSysBar()"><span style=" cursor:pointer; "><img src="__PUBLIC__/images/main_18.gif" name="img1" width=8 height=52 id=img1></span></td>
+    <td align="center" valign="top" height="40" width="100%">
+    	<div class="top">
+				<ul class="top_icon fr">
+					<li>
+						<a class="username"> <span><img src="__PUBLIC__/images/frame/1.jpg"/></span>
+						<p>
+							<strong>{$Think.session.user.username}</strong>
+							<br/>
+							<em>{$Think.session.user.dept}</em>
+						</p> 
+						</a>
+					</li>
+					<li>
+						<a href="__APP__/Admin/Index/main" target="frmright" class="top_a"><i class="hIcon ico_jsq"></i><em>回到首页</em></a>
+					</li>
+					<li>
+						<a href="__APP__/Admin/User/setPwdUI?id={$Think.session.user.id}" target="frmright" class="top_a"><i class="hIcon ico_sz"></i><em>修改密码</em></a>
+					</li>
+					<li>
+						<a href="__APP__/Admin/Login/quit" class="top_a"><i class="hIcon ico_tc"></i><em>退出</em></a>
+					</li>
+					
+				</ul>
+			</div>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" valign="top" height="100%" width="100%"><iframe id="frmright" name="frmright" src="__APP__/Admin/Index/main.html" frameborder="0" height="100%" width="100%" allowtransparency="true">浏览器不支持嵌入式框架，或被配置为不显示嵌入式框架。</iframe>
+    </td>
+  </tr>
+</table>
+<script type="text/javascript" src="__PUBLIC__/js/menu.js"></script> 
+<script>
+	function switchSysBar(){ 
+		var locate=location.href.replace('index.html','');
+		var src=document.all("img1").src.replace(locate,'');
+		//alert(src);
+		if (src.indexOf("images/main_18.gif")!=-1){ 
+			document.all("img1").src="__PUBLIC__/images/main_18_1.gif";
+			document.all("frmTitle").style.display="none"; 
+		} 
+		else{ 
+			document.all("img1").src="__PUBLIC__/images/main_18.gif";
+			document.all("frmTitle").style.display=""; 
+		} 
+	} 
+</script> 
+
+	</body>
+</html>

@@ -1,0 +1,105 @@
+<table class="youAdd">
+	<tr>
+		<td class="TDleft"><label>在谈项目名称：</label></td>
+		<td colspan="3">
+		<input type="text" name="zt_project_name" value="{$mo.zt_project_name}" class="input-xlarge"  title="在谈项目名称">
+		</td>
+	</tr>
+	<tr>
+		<td class="TDleft"><label>在谈建设内容：</label></td>
+		<td>
+		<input type="text" name="zt_build_content" value="{$mo.zt_build_content}" class="input-xlarge"  title="在谈建设内容">
+		</td>
+		<td class="TDleft"><label>拟投资额：</label></td>
+		<td><!-- <input type="text" id="plan_invest" name="plan_invest" value="{$mo.plan_invest}" class="input-xlarge"> --><!-- (亿元）  -->
+		<select id="zt_plan_invest" name="zt_plan_invest"  title="拟投资额">
+			<option value="" <eq name="mo.zt_plan_invest" value="">selected</eq>>-请选择-</option>
+			   <foreach name="Think.session.zidianList" item="vo" >  
+                    <eq name="vo.kind" value="拟投资额">          		
+                     	<option value="{$vo.name}" <eq name="mo.zt_plan_invest" value="$vo.name">selected</eq>>{$vo.name}</option>
+                    </eq>
+               </foreach>
+			<!-- <option value="" <eq name="mo.zt_plan_invest" value="">selected</eq>>-请选择-</option>
+			<option value="0-5000万" <eq name="mo.zt_plan_invest" value="0-5000万">selected</eq>>0-5000万</option>
+			<option value="5000万-1亿" <eq name="mo.zt_plan_invest" value="5000万-1亿">selected</eq>>5000万-1亿</option>
+			<option value="1亿-5亿" <eq name="mo.zt_plan_invest" value="1亿-5亿">selected</eq>>1亿-5亿</option>
+			<option value="5亿以上" <eq name="mo.zt_plan_invest" value="5亿以上">selected</eq>>5亿以上</option> -->
+		</select></td>
+	</tr>
+	<tr>
+		<td class="TDleft"><label>在谈投资方：</label></td>
+		<td>
+		<input type="text" name="zt_investor" value="{$mo.zt_investor}" class="input-xlarge"  title="在谈投资方">
+		</td>
+		<td class="TDleft"><label>行业：</label></td>
+		<td>
+			<!-- <input type="text" name="zt_trade" value="{$mo.zt_trade}" class="input-xlarge"> -->
+		<select id="zt_trade" name="zt_trade"  title="行业">
+			   <option value="" <eq name="mo.zt_trade" value="">selected</eq>>-请选择-</option>
+			   <foreach name="Think.session.zidianList" item="vo" >  
+                    <eq name="vo.kind" value="行业">          		
+                     	<option value="{$vo.name}" <eq name="mo.zt_trade" value="$vo.name">selected</eq>>{$vo.name}</option>
+                    </eq>
+               </foreach>
+			<!-- <option value="" <eq name="mo.zt_trade" value="">selected</eq>>-请选择-</option>
+			<option value="工业" <eq name="mo.zt_trade" value="工业">selected</eq>>工业</option>
+			<option value="农业" <eq name="mo.zt_trade" value="农业">selected</eq>>农业</option>
+			<option value="服务业" <eq name="mo.zt_trade" value="服务业">selected</eq>>服务业</option> -->
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="TDleft"><label>拟建地点：</label></td>
+		<td>
+		<notin name="Think.session.user.dept" value="大冶市,阳新县,开发区,下陆区,铁山区,黄石港区,西塞山区">
+			
+		<select id="zt_plan_place" name="zt_plan_place" >
+			<option value="" <eq name="mo.zt_plan_place" value="">selected</eq>>-请选择-</option>
+			   <foreach name="Think.session.zidianList" item="vo" >  
+                    <eq name="vo.kind" value="拟建地点">          		
+                     	<option value="{$vo.name}" <eq name="mo.zt_plan_place" value="$vo.name">selected</eq>>{$vo.name}</option>
+                    </eq>
+               </foreach>
+		</select>
+		</notin>
+		<in name="Think.session.user.dept" value="大冶市,阳新县,开发区,下陆区,铁山区,黄石港区,西塞山区">
+			<input type="text" id="zt_plan_place" name="zt_plan_place" value="{$mo.zt_plan_place|default=$_SESSION['user']['dept']}"  />
+		</in>
+		
+		</td>
+		<td class="TDleft"><label>用地情况[亩]：</label></td>
+		<td>
+		<input type="number" name="zt_use_land" value="{$mo.zt_use_land}" class="input-xlarge" >
+		</td>
+	</tr>
+	<tr>
+		<!-- <td class="TDleft"><label>进展状态：</label></td>
+		<td>
+		<input type="text" name="zt_status" value="{$mo.zt_status}" class="input-xlarge">
+		</td> -->
+		<td class="TDleft"><label>联系人：</label></td>
+		<td colspan="3">
+		<input type="text" name="zt_link_man" value="{$mo.zt_link_man}" class="input-xlarge" >
+		</td>
+	</tr>
+	<tr>
+		<td class="TDleft"><label>联系人职务：</label></td>
+		<td>
+		<input type="text" name="zt_link_man_position" value="{$mo.zt_link_man_position}" class="input-xlarge" >
+		</td>
+		<td class="TDleft"><label>联系人电话：</label></td>
+		<td>
+		<input type="text" name="zt_link_man_tel" value="{$mo.zt_link_man_tel}" class="input-xlarge" >
+		</td>
+	</tr>
+	<tr>
+		<td class="TDleft"><label>跟踪人：</label></td>
+		<td>
+		<input type="text" name="zt_track_man" value="{$mo.zt_track_man}" class="input-xlarge" >
+		</td>
+		<td class="TDleft"><label>跟踪单位：</label></td>
+		<td>
+		<input type="text" name="zt_track_dept" value="{$mo.zt_track_dept}" class="input-xlarge" >
+		</td>
+	</tr>
+</table>

@@ -1,0 +1,122 @@
+<table class="youAdd tabAudit">
+	<tr>
+		<td class="TDleft"><label>累计实际到资总额[亿元]</label></td>
+		<td width="30%">
+		{$mo.tc_accumulative_in_invest}
+		</td>
+		<td class="TDleft"><label>投产时间：</label></td>
+		<td>
+		{$mo.tc_date}
+		</td>
+	</tr>
+	<tr>
+		<td class="TDleft"><label>已形成产能[万元]：</label></td>
+		<td>
+		{$mo.tc_capacity}
+		</td>
+		<td class="TDleft"><label>月度销售收入[万元]</label></td>
+		<td>
+		{$mo.tc_month_sale_money}
+		</td>
+	</tr>
+	<tr>
+		<td class="TDleft"><label>投产备注：</label></td>
+		<td colspan="3">
+		{$mo.tc_remark}
+		</td>		
+	</tr>
+	<tr>
+		<td class="TDleft"><label>投产提供附件：</label></td>
+		    	<td colspan="3">
+		    		  
+		    	
+		    		  
+<div id="div_attachment_tc">
+					
+		 <!-- 如果有附件就显示 -->	     
+	<notempty name="mo.tc_attachment_url">
+		  <foreach name="tc_attachment_urlArr" item="vo" key="k">   
+		     <div>	      
+		       <a href="{$vo}" target="_blank">{$tc_attachmentArr[$k]}</a>
+		       <input type="hidden" id="tc_attachment" name="tc_attachment[]" value="{$tc_attachmentArr[$k]}"  />
+		       <input type="hidden" id="tc_attachment_url" name="tc_attachment_url[]" value="{$vo}" />
+		       <!-- <a onclick="removeParent(this)"><img src="__PUBLIC__/images/remove.png" /></a> -->
+		     </div>	   
+		  </foreach>
+	</notempty>
+		    		  
+</div>  		  
+		    		<!-- <input type="file" id="file_tc" name="file_tc" onchange="doUploadTC()" /> -->
+		    	</td>
+	</tr>
+	 <tr>
+		    	<td class="TDleft"><label>高拍仪：</label></td>
+		    	<td colspan="3">
+		    		<div id="div_tc_gpy_attachment">
+	
+	<notempty name="mo.tc_gpy">
+		  <foreach name="tc_gpyArr" item="vo" key="k">   
+		     <div>	      
+		       <a href="__UPLOADS__/gpy/{$vo}" target="_blank">{$vo}</a>
+		     
+		     </div>	   
+		  </foreach>
+	</notempty>	
+		
+		    		</div>
+		    		
+   
+		    		
+		    	</td>
+		    </tr>
+</table>
+
+
+
+
+<script type="text/javascript">
+
+
+
+function doUploadTC(){
+	 $.ajaxFileUpload
+     (
+         {
+             url: '__APP__/Home/File/upload', //用于文件上传的服务器端请求地址
+             type: 'post',
+             data: { fileId: 'file_tc', name: 'lunis' }, //此参数非常严谨，写错一个引号都不行
+             secureuri: false, //一般设置为false
+             fileElementId: 'file_tc', //文件上传空间的id属性  <input type="file" id="file1" name="file1" />
+             dataType: 'text', //返回值类型 一般设置为json
+             success: function (data, status)  //服务器成功响应处理函数
+             {
+                var name=data.name;
+                var url=data.url;
+                var href = url;
+                 
+                
+               //alert(name+";"+url);
+                
+                var div = $('#div_attachment_tc');
+				var html = '<div>'
+						    +'<input type="hidden" name="tc_attachment[]" value="'+name+'">'
+							+'<input type="hidden" name="tc_attachment_url[]" value="'+url+'">'
+							+'<a href="'+href+'" target="_blank">'+name+'</a><a onclick="removeParent(this)"><img src="__PUBLIC__/images/remove.png"></a>'
+							+'</div>';
+				div.append(html);
+             },
+             error: function (data, status, e)//服务器响应失败处理函数
+             {
+                 alert(e);
+             }
+         }
+     );
+}
+
+         /**
+          *移除父对象 
+          */
+         function removeParent(obj){
+         	$(obj).parent().remove();
+         }
+</script>

@@ -1,0 +1,1 @@
+<?php if (!defined('THINK_PATH')) exit();?>在线访谈控制器
